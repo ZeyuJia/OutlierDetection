@@ -1,0 +1,61 @@
+\documentclass[english]{article}
+\RequirePackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage{subfigure}
+
+\fancypagestyle{plain}{
+	\fancyhf{}\renewcommand*{\headrulewidth}{0.75bp}
+	\fancyhead[R]{\normalfont{Page \thepage{} of \pageref*{LastPage}}}
+	\fancyhead[L]{\normalfont{\cuniversity}}
+	\fancyhead[C]{\normalfont{\titlemark}}
+}
+\pagestyle{plain}
+
+\geometry{
+	a4paper, includefoot, hmargin = 2.6cm, top = 2.7cm, bottom = 2cm,
+	headheight = 1.5cm, headsep = 0.5cm, footskip = 0.75cm
+}
+
+\DeclareRobustCommand{\authorthing}{
+\begin{tabular}{cc}
+\large{Zeyu Jia}\thanks{The authors are arranged lexicographically.} & \large{Feng Zhu}\footnotemark[1]\\
+1600010603 & 1600010643
+\end{tabular}\\
+\\
+School of Mathematical Science, Peking University
+}
+
+\newcommand{\cuniversity}{Peking University}
+\newcommand{\titlemark}{A Brief Survey on Outlier Classification}
+\newcommand{\Input}{\textbf{Input}}
+\newcommand{\Output}{\textbf{Output}}
+\author{\authorthing}
+\title{\textbf{\titlemark}}
+
+\begin{document}
+\maketitle
+
+\abstract{}
+
+\section{Introduction}
+\par
+
+\section{Supervised Learning Models}
+
+\section{Outlier Detection Methods}
+
+\section{Clustering-Based Modeling Methods}
+
+\section{Numerical Experiment}
+
+\section{Conclusion}
+
+\bibliography{reference}
+\bibliographystyle{plain}
+
+\end{document}
