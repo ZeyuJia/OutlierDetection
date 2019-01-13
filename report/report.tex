@@ -40,12 +40,208 @@ School of Mathematical Science, Peking University
 \begin{document}
 \maketitle
 
-\abstract{}
+\abstract{12}
 
 \section{Introduction}
-\par
 
 \section{Supervised Learning Models}
+\par In this section, we will discuss several commonly used supervised learning methods, and their application on outlier classification tasks. These supervised learning methods includes
+\begin{itemize}
+	\item Logistic regression classifier,
+	\item Gaussian Naive bayes classifier,
+	\item Decision tree classifier,
+	\item Support vector classifier,
+	\item Discriminant analysis classifier,
+	\item K-nearest neighbor classifier.
+\end{itemize}
+\par Furthermore, we will also introduce two useful techniques used in classification problem: boosting methods, and random forest/bagging/voting methods. These methods and techniques will be discussed in the following subsections respectively.
+
+\subsection{Logistic Regression Classifier}
+\par The logistic regression classifier is one of the most simple methods used in 2-class classification problem. Suppose two class are denoted by $0$ and $1$. Then we will find an proper $W$ and $b$ such that
+\begin{equation}\label{logistic}
+	\begin{aligned}
+		&P(y=0|X=x, \beta=(W, b)) = \frac{1}{1 + \exp(Wx+b)},\\
+		&P(y=1|X=x, \beta=(W, b)) = \frac{\exp(Wx+b)}{1 + \exp(Wx+b)},\\
+	\end{aligned}
+\end{equation}
+and we will maximize the log-likelihood:
+\begin{equation}
+	l(\beta) = \sum_{i=1}^{N}y_{i}\log P(y=y_{i}|X=x_{i}, \beta) + (1-y_{i})\log P(y\neq y_{i}|X=x_{i}, \beta).
+\end{equation}
+By finding the optimal parameter $\beta$, then we can use \eqref{logistic} to make prediction.
+
+\subsection{Gaussian Naive Bayes Classifier}
+\par Gaussian naive Bayes classifier is one of Bayesian classifier using Gaussian distribution as prior. We make the assumption that
+\begin{equation}
+	P(X|y) = \prod_{i=1}^{m}P(x_{i}|y),
+\end{equation}
+where $X = (x_{1}, \cdots, x_{m})$ is the feature vector. This assumption talks about the independence of each element of feature vector. And then we can use MAP to make classification:
+\begin{equation}\label{GNB}
+	\hat{y} = \arg\max_{y}P(y|X) = \arg\max_{y}\frac{P(y)\prod_{i=1}^{m}P(x_{i}|y)}{P(X)} = \arg\max_{y}P(y)\prod_{i=1}^{m}P(x_{i}|y).
+\end{equation}
+And here we assume the likelihood given each $y$ to be Gaussian:
+\begin{equation}
+	P(x_{i}|y)\sim\mathcal{N}(\mu_{y}, \sigma_{y}),
+\end{equation}
+where parameters $\mu_{y}$ and $\sigma_{y}$ are determined by maximum likelihood estimation. After finishing this estimation, the classification process can be done according to \eqref{GNB}.
+\par The underlying assumption of this method is that data in each class satisfies Gaussian distribution, and each features are independent given its label.
+
+\subsection{Decision Tree Classifier}
+\par The decision tree classifier is a little bit different to other methods. The other methods all aim to find a proper linear (or nonlinear) combination of features. The decision tree, however, will execute on features sequentially. In other words, in each step of decision tree's iteration, only one feature will be taken into consideration.
+\par The training of a decision tree is often divided into two parts: splitting and pruning. In the splitting part, the decision tree will expand their leaves. That is, finding a new features (often the one with the most reduction of the loss) and then split one of the tree leaf into two new leaves. In the pruning process, some of leaves will merged into one, if merging them can decrease the value of loss plus regularization.
+
+\subsubsection{Weight Decision Tree}
+\par Weighted decision tree is a useful model in tackling cases where number of instances in each class varies a lot.
+\par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we multiply instances in each class by a weight. After doing that, we aim to let instance weight in each class multiplied by the number of instances in that class not vary a lot. (This has the same effect as duplicating instances in minor classes several times.) Then we will train a decision tree with these instances and weights.
+\par Adopting this technique, the inclination to classify a new instance to major classes reduces a lot.
+
+\subsection{Support Vector Classifier}
+\par The support vector classifier is also termed with support vector machine for classification. 
+\par Estimating parameters of common SVM (linear SVM) can be done by solving the following optimization problem:
+\begin{equation}
+	\begin{aligned}
+		& \min_{\beta, \beta_{0}}\frac{1}{2}\|\beta\|^{2} + C\sum_{i=1}^{n}\xi_{i}\\
+		& \text{subject to }\xi_{i}\ge 0, y_{i}(x_{i}^{T}\beta + \beta_{0})\ge 1 - \xi_{i}, \quad \forall i
+	\end{aligned}
+\end{equation}
+\par We can solve it by writing its dual problem:
+\begin{equation}
+	\begin{aligned}
+		& \max_{\alpha_{i}}\sum_{i=1}^{n}\alpha_{i} - \frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_{i}\alpha_{j}y_{i}y_{j}x_{i}^{T}x_{j},\\
+		& \text{subject to } 0\le \alpha_{i}\le C, \quad\sum_{i=1}^{n}\alpha_{i}y_{i} = 0.
+	\end{aligned}
+\end{equation}
+\par In order to handle data that cannot be linear separated, we introduce the kernel function, which elevate the feature $x_{i}$ into $h(x)$. If $\langle h(x), h(y)\rangle = K(x, y)$, where this $K(x, y)$ is called the kernel, then the dual problem becomes
+\begin{equation}
+	\begin{aligned}
+		& \max_{\alpha_{i}}\sum_{i=1}^{n}\alpha_{i} - \frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_{i}\alpha_{j}y_{i}y_{j}K(x_{i}, x_{j}),\\
+		& \text{subject to } 0\le \alpha_{i}\le C, \quad\sum_{i=1}^{n}\alpha_{i}y_{i} = 0,
+	\end{aligned}
+\end{equation}
+and the prediction step can be written as
+\begin{equation}
+	f(x) = h(x)^{T}\beta + \beta_{0} = \sum_{i=1}^{n}\alpha_{i}y_{i}K(x, x_{i}) + \beta_{0}.
+\end{equation}
+We can classify the instance $x$ according to the sign of $f(x)$.
+\par In our implementation, we use the RBF kernel 
+\begin{equation}
+	K(x, y) = \exp\left(-\frac{\|x-y\|^{2}}{2\sigma^{2}}\right)
+\end{equation}
+to make classification.
+
+\subsection{Discriminant Analysis Classifier}
+\par The discriminant analysis classifiers we implemented include the linear discriminant analysis classifier (LDA) and quadratic discriminant classifier (QDA).
+\subsubsection{Linear Discriminant Analysis Classifier}
+\par In LDA setting, the underlying assumption is that data in each class satisfies Gaussian distribution. Furthermore, we also assume the covariance matrix in each class shares the same one. 
+\par To use this model to classify a new instance, firstly, we need to estimate the probability of each class $\hat{\pi}_{k}$, the mean of the data distribution of each class $\hat{\mu}_{k}$, and the covariance matrix $\Sigma$:
+\begin{itemize}
+	\item $\hat{\pi}_{k} = N_{k} / N$, where $N_{k}$ is the number of instances in class $k$ and $N$ is the total number of instances. ($k = 1, 2$),
+	\item $\hat{\mu}_{k} = \sum_{y_{i} = k}x_{i} / N_{k}$,
+	\item $\hat{\Sigma} = \sum_{k=1}^{2}\sum_{y_{i} = k}(x - \hat{\mu}_{k})(x - \hat{\mu}_{k})^{T} / (N - 2)$.
+\end{itemize}
+Then we can use the following quantity
+\begin{equation}
+	\delta_{k}(x) = x^{T}\Sigma^{-1}\mu_{k} - \frac{1}{2}\mu_{k}^{T}\Sigma^{-1}\mu_{k} + \log\pi_{k}
+\end{equation}
+to determine the estimated class of instance $x$, according to
+\begin{equation}
+	\hat{y} = \arg\max_{k\in\{1, 2\}}\delta_{k}(x).
+\end{equation}
+
+\subsubsection{Quadratic Discriminant Analysis Classifier}
+\par In LDA's setting, we assume the covariance matrix in each class to be the same one, but sometimes this assumption cannot hold, and we need to estimate the covariance matrix for each class. This estimation is called quadratic discriminant analysis.
+\par The estimating method for the covariance in class $k$ is
+\begin{equation}
+	\hat{\Sigma}_{k} = \frac{1}{N_{k} - 1}\sum_{y_{i} = k}(x_{i} - \hat{\mu}_{k})(x_{i} - \hat{\mu}_{k})^{T},
+\end{equation}
+where $N_{k}$ is the total number of training data classified into class $k$, and $\mu_{k}$ is the estimated mean according to the formula in LDA.
+\par In QDA setting, we can use the following quantity
+\begin{equation}
+	\delta_{k}(x) = -\frac{1}{2}\log|\hat{\Sigma}_{k}| - \frac{1}{2}(x - \mu_{k})^{T}\Sigma_{k}^{-1}(x - \mu_{k}) + \log\pi_{k}
+\end{equation}
+to determine the estimated class of instance $x$, according to
+\begin{equation}
+	\hat{y} = \arg\max_{k\in\{1, 2\}}\delta_{k}(x).
+\end{equation}
+\par Note that the QDA classifier is similar to the naive Bayes classifier, only lack of the assumption that each feature is independent given the class label. Hence if we assume the covariance matrices $\hat{\Sigma}_{k}$ to be diagonal, then we will obtain the same results to naive Bayes classifier.
+
+\subsection{K-Nearest Neighbor Classifier}
+\par The K-nearest-neighbor classifier (KNN classifier) is the simplest kernel smoothing classifier. Its idea is to label a new instance according to the majority among its nearest $k$ instances label.
+\par Specifically, suppose the training set is denoted by $\{(x_{i}, y_{i})\}_{1\le i\le n}$ ($y_{i}\in\{0, 1\}$), and we have a new instance $x$. If the $k$ nearest neighbors to $x$ among $x_{i}$ are $x_{1}\cdots, x_{k}$, then we will label it according to
+\begin{equation}
+	\hat{y} = \begin{cases}
+		0 & \quad \text{if }\sum_{i=1}^{k}y_{i}\le k / 2,\\
+		1 & \quad \text{if }\sum_{i=1}^{k}y_{i}> k / 2.\\
+	\end{cases}
+\end{equation}
+\par The training process of the KNN method takes very short time. However, in the predicting process, for every new instance, we need to search over the training set to find $k$ nearest neighbor to the new instance, which will be quite time costly if the training set is extremely large.
+
+\subsection{Boosting Methods}
+\par We will discuss two boosting methods we have implemented in this subsection:
+\begin{itemize}
+	\item Adaboost
+	\item XGboost
+\end{itemize}
+
+\subsubsection{Adaboost}
+\par Adaboost method is one of the most commonly used ensemble method aiming to improve the accuracy on the training set.
+\par The adaboost method can be viewed as a method which improves the performance on the training set by training a model with larger weight on data misclassified and smaller weight on data classified correctly.
+\par Specifically, suppose we have $m-1$ classifier $G_{1}, \cdots, G_{m-1}$ with weight $\beta_{1}, \cdots, \beta_{m-1}$. And we have function $f_{i}$ with $f_{i}(x) = f_{i-1}(x) + \beta_{i}G_{m}(x)$. Then we will train the $m$-th classifier $G_{m}$ and its weight $\beta_{m}$ to minimize
+\begin{equation}
+	\beta_{m}, G_{m} = \arg\min_{\beta, G}\sum_{i=1}^{n}\exp(-y_{i}(f(x_{i}) + \beta G(x_{i}))),
+\end{equation}
+and then we let
+\begin{equation}
+	f_{m}(x) = f_{m-1}(x) + \beta_{m}G_{m}(x).
+\end{equation}
+
+\subsubsection{XGboost}
+\par This part refers to the paper \cite{chen1603xgboost}. XGboost is the abbreviation of ``extreme gradient boosting'' method. This is also a method using the boosting tree technique. But instead of using gradient boosting, the main idea of XGboost is to use both the first and the second order derivative to approximate the loss function.
+\par Specifically speaking, we first define the loss function of the model:
+\begin{equation}
+	\mathcal{L} = \sum_{i=1}^{n}l(y_{i}, \hat{y}_{i}) + \sum_{k=1}^{K}\Omega(f_{k}),
+\end{equation}
+where $K$ is the number of trees in this model, $\Omega$ is the regularization function, and $\hat{y}_{i}$ is defined as
+\begin{equation}
+	\hat{y}_{i} = \sum_{k=1}^{K}f_{k}(x_{i}).
+\end{equation}
+\par When we aim to train the $t$-th tree $f_{t}$, the loss function is 
+\begin{equation}
+	\mathcal{L}^{(t)} = \sum_{i=1}^{n}l(y_{i}, \hat{y}_{i}^{(t-1)} + f_{t}(x_{i})) + \Omega(f_{t}) + const,
+\end{equation}
+where $\hat{y}_{i}^{(t-1)}$ is the predicted value on $x_{i}$ according to the first $t-1$ trees. Next, in order to minimize this loss, we find the Taylor expansion:
+\begin{equation}\label{xgboost}
+	\mathcal{L}^{(t)}\approx\sum_{i=1}^{n}\left[l(y_{i}, \hat{y}_{i}^{(t-1)}) + g_{i}f_{t}(x_{i}) + \frac{1}{2}h_{i}f_{t}^{2}(x_{i})\right] + \Omega(f_{t}) + const,
+\end{equation}
+where
+\begin{equation}
+	g_{i} = \partial_{\hat{y}^{(t-1)}}l(y_{i}, \hat{y}^{(t-1)}), \quad h_{i} = \partial^{2}_{\hat{y}^{(t-1)}}l(y_{i}, \hat{y}^{(t-1)}).
+\end{equation}
+\par Normally, we choose the function $l$ as the squared loss function
+\begin{equation}
+	l(y_{i}, \hat{y}_{i}) = (y_{i} - \hat{y}_{i})^{2}.
+\end{equation}
+Then it is easy to calculate 
+\begin{equation}
+	g_{i} = 2(\hat{y}^{(t-1)} - y_{i}), \quad h_{i} = 2.
+\end{equation}
+\par In order to find the most proper tree model $f_{t}$, we only need to find the optimizer of \eqref{xgboost}.
+
+\subsection{Random Forest / Bagging / Voting Methods}
+\par Methods discussed in this subsection are similar in that they all adopt the idea of bagging or voting to make the classifier more powerful. We will discussed voting method, bagging method and the random forest method here in this subsection.
+
+\subsubsection{Voting Method}
+\par The voting method is a method balancing different classifiers in order to achieve a better classifier.
+\par Suppose their are $n$ classifier $f_{1}, \cdots, f_{m}$. Then we assign weights $w_{1}, \cdots, w_{m}$ to each classifier. Then the idea of voting is to choose the label which is most likely been classified. That is, we choose 
+\begin{equation}
+	\hat{y} = \max_{y}\#\{f_{m}(x) = y, 1\le i\le m\}.
+\end{equation}
+
+\subsubsection{Bagging Method}
+\par The bagging method adopts the idea of voting method, uses one model to train several classifiers by bootstrap, and then use these classifiers to vote to get the prediction. This type of methods can reduce the variance, and is easy for parallel computing.
+
+\subsubsection{Random Forest Method}
+\par The well-known random forest method is based on bagging method, but random forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data applied bootstrap technique, but also the features are selected randomly.
 
 \section{Outlier Detection Methods}
 
