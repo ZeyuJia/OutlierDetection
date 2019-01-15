@@ -16,6 +16,7 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand \oddpage@label [2]{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Supervised Learning Models}{1}{section.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Logistic Regression Classifier}{1}{subsection.2.1}}
@@ -23,9 +24,10 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Gaussian Naive Bayes Classifier}{2}{subsection.2.2}}
 \newlabel{GNB}{{4}{2}{Gaussian Naive Bayes Classifier}{equation.2.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Decision Tree Classifier}{2}{subsection.2.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Weight Decision Tree}{2}{subsubsection.2.3.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Weighted Decision Tree}{2}{subsubsection.2.3.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Support Vector Classifier}{2}{subsection.2.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Discriminant Analysis Classifier}{3}{subsection.2.5}}
+\newlabel{DA}{{2.5}{3}{Discriminant Analysis Classifier}{subsection.2.5}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.1}Linear Discriminant Analysis Classifier}{3}{subsubsection.2.5.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.2}Quadratic Discriminant Analysis Classifier}{3}{subsubsection.2.5.2}}
 \citation{chen1603xgboost}
@@ -33,18 +35,44 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.7}Boosting Methods}{4}{subsection.2.7}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.1}Adaboost}{4}{subsubsection.2.7.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.7.2}XGboost}{4}{subsubsection.2.7.2}}
-\bibdata{reference}
-\bibcite{chen1603xgboost}{1}
-\bibstyle{plain}
-\newlabel{xgboost}{{22}{5}{XGboost}{equation.2.22}{}}
+\newlabel{xgboost}{{22}{4}{XGboost}{equation.2.22}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.8}Random Forest / Bagging / Voting Methods}{5}{subsection.2.8}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.1}Voting Method}{5}{subsubsection.2.8.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.2}Bagging Method}{5}{subsubsection.2.8.2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.8.3}Random Forest Method}{5}{subsubsection.2.8.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Outlier Detection Methods}{5}{section.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Clustering-Based Modeling Methods}{5}{section.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Experiment}{5}{section.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{5}{section.6}}
-\newlabel{LastPage}{{}{5}{}{page.5}{}}
-\xdef\lastpage@lastpage{5}
-\xdef\lastpage@lastpageHy{5}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Our Idea: Clustering-Based Modelling Methods}{5}{section.4}}
+\@writefile{toc}{\contentsline {paragraph}{}{5}{section*.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Bayesian Decision Theory}{5}{subsection.4.1}}
+\@writefile{toc}{\contentsline {paragraph}{}{5}{section*.2}}
+\@writefile{toc}{\contentsline {paragraph}{}{5}{section*.3}}
+\newlabel{optbayes}{{4.1}{6}{}{thm.4.1}{}}
+\newlabel{optbayescrit}{{28}{6}{}{equation.4.28}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{6}{section*.4}}
+\newlabel{param}{{31}{6}{}{equation.4.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}GMDA: Gaussian Mixture Discriminant Analysis}{6}{subsection.4.2}}
+\@writefile{toc}{\contentsline {paragraph}{}{6}{section*.5}}
+\@writefile{toc}{\contentsline {paragraph}{}{6}{section*.6}}
+\@writefile{toc}{\contentsline {paragraph}{}{6}{section*.7}}
+\newlabel{GMDA}{{1}{6}{}{algocfline.1}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Gaussian Mixture Discriminant Analysis}}{6}{algocf.1}}
+\bibdata{reference}
+\bibcite{chen1603xgboost}{1}
+\bibstyle{plain}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Relation and Extension with Other Methods}{7}{subsection.4.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Relation with Naive Bayes}{7}{subsubsection.4.3.1}}
+\@writefile{toc}{\contentsline {paragraph}{}{7}{section*.8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Relation with LDA and QDA}{7}{subsubsection.4.3.2}}
+\@writefile{toc}{\contentsline {paragraph}{}{7}{section*.9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Relation with Decision Tree}{7}{subsubsection.4.3.3}}
+\@writefile{toc}{\contentsline {paragraph}{}{7}{section*.10}}
+\@writefile{toc}{\contentsline {paragraph}{}{7}{section*.11}}
+\newlabel{GMDA-DTC}{{2}{7}{}{algocfline.2}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces GMDA with Decision Tree Classifier}}{7}{algocf.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Experiment}{7}{section.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{7}{section.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proof of Theorem \ref  {optbayes}}{8}{appendix.A}}
+\@writefile{toc}{\contentsline {paragraph}{}{8}{section*.13}}
+\newlabel{LastPage}{{}{8}{}{page.8}{}}
+\xdef\lastpage@lastpage{8}
+\xdef\lastpage@lastpageHy{8}

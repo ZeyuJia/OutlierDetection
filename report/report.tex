@@ -1,12 +1,21 @@
 \documentclass[english]{article}
 \RequirePackage{fancyhdr}
+\usepackage{times}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{lastpage}
 \usepackage{graphicx}
 \usepackage{subfigure}
+\usepackage[linesnumbered, ruled]{algorithm2e}
+\usepackage{algpseudocode}
+\newenvironment{eqt}{\begin{equation}\begin{aligned}}{\end{aligned}\end{equation}}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{thm}{Theorem}[section]
+
 
 \fancypagestyle{plain}{
 	\fancyhf{}\renewcommand*{\headrulewidth}{0.75bp}
@@ -90,7 +99,7 @@ where parameters $\mu_{y}$ and $\sigma_{y}$ are determined by maximum likelihood
 \par The decision tree classifier is a little bit different to other methods. The other methods all aim to find a proper linear (or nonlinear) combination of features. The decision tree, however, will execute on features sequentially. In other words, in each step of decision tree's iteration, only one feature will be taken into consideration.
 \par The training of a decision tree is often divided into two parts: splitting and pruning. In the splitting part, the decision tree will expand their leaves. That is, finding a new features (often the one with the most reduction of the loss) and then split one of the tree leaf into two new leaves. In the pruning process, some of leaves will merged into one, if merging them can decrease the value of loss plus regularization.
 
-\subsubsection{Weight Decision Tree}
+\subsubsection{Weighted Decision Tree}
 \par Weighted decision tree is a useful model in tackling cases where number of instances in each class varies a lot.
 \par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we multiply instances in each class by a weight. After doing that, we aim to let instance weight in each class multiplied by the number of instances in that class not vary a lot. (This has the same effect as duplicating instances in minor classes several times.) Then we will train a decision tree with these instances and weights.
 \par Adopting this technique, the inclination to classify a new instance to major classes reduces a lot.
@@ -130,6 +139,7 @@ We can classify the instance $x$ according to the sign of $f(x)$.
 to make classification.
 
 \subsection{Discriminant Analysis Classifier}
+\label{DA}
 \par The discriminant analysis classifiers we implemented include the linear discriminant analysis classifier (LDA) and quadratic discriminant classifier (QDA).
 \subsubsection{Linear Discriminant Analysis Classifier}
 \par In LDA setting, the underlying assumption is that data in each class satisfies Gaussian distribution. Furthermore, we also assume the covariance matrix in each class shares the same one. 
@@ -245,13 +255,164 @@ Then it is easy to calculate
 
 \section{Outlier Detection Methods}
 
-\section{Clustering-Based Modeling Methods}
+\section{Our Idea: Clustering-Based Modelling Methods}
+\paragraph{}
+In this part, we will explicitly describe our algorithm on outlier classification. We focus on seperately modelling data distribution with different labels and apply a variant of Bayesian decision theory for classification. Such idea can be easily integrated with other supervised or unsupervised learning technique such as decision tree and EM algorithm.
+
+\subsection{Bayesian Decision Theory}
+\paragraph{}
+We assume the following conditions.
+\begin{enumerate}
+\item Suppose there are $k$ different classes $G_1, ..., G_k$. 
+\item For any given data $x$, the prior probability that it belongs to $G_k$ is $p_k$ (Thus we must have $\sum_{i=1}^kp_i=1$). 
+\item Let $L(j|i)$ be the loss when we classify an object in $G_i$ to $G_j$. Generally, when $i=j$, $L(j|i) = 0$.
+\item Let $P(j|i;D)$ be the probability that we classify an object in $G_i$ into $G_j$ under the criterion $D$.
+\end{enumerate}
+\paragraph{}
+With these assumptions, we now obtain the following definition.
+
+\begin{defn}
+Let $g(D) := \sum_{i=1}^kp_i\sum_{j=1}^kP(j|i;D)L(j|i)$ to be the average loss under classification criterion $D$. If there exists a $D^*$ such that
+\begin{eqt}
+g(D^*) = \min_Dg(D)
+\end{eqt}
+We call $D^*$ the optimal Bayesian (classification) criterion.
+\end{defn}
+If we add some conditions, we will have the following theorem.
+\begin{thm}
+\label{optbayes}
+Suppose the joint distribution density of the $i$th class $G_i$ is $f_i(X)$, then the optimal Bayesian criterion $D^*=(D_1^*, ..., D_k^*)$ is
+\begin{eqt}
+\label{optbayescrit}
+D_i^* = \{X|h_i(X)<h_j(X), \forall j\neq i\},
+\end{eqt}
+where $h_j(X) = \sum_{i=1}^kp_iL(j|i)f_i(X)$, i.e., the average loss when we classify $X$ into $G_j$.
+\end{thm}
+\begin{proof}
+For detailed proof, please see the appendix.
+\end{proof}
+\paragraph{}
+In our setting, $k=2$. Then from Theorem \ref{optbayes},
+\begin{eqt}
+h_1(X) = p_2f_2(X)L(1|2),\indent h_2(X) = p_1f_1(X)L(2|1)
+\end{eqt}
+Therefore, the optimal Bayesian solution is 
+\begin{eqt}
+&D_1 = \{X|W(X)>d\}, \\
+&D_2 = \{X|W(X)\leqslant d\},
+\end{eqt}
+where
+\begin{eqt}
+\label{param}
+W(X) = \frac{f_1(X)}{f_2(X)},\indent d = \frac{p_2L(1|2)}{p_1L(2|1)}.
+\end{eqt}
+Once we obtain the densities, the prior probabilities and the loss, we could make optimal Bayesian decision.
+
+\subsection{GMDA: Gaussian Mixture Discriminant Analysis}
+\paragraph{}
+To determine the density $f(X)$, we have numerous choices. For both fitness of generalization and speed of optimization, we choose to model $f(X)$ using Gaussian Mixture. Many kinds of data in real life can be well approximated by this model and well-performed algorithms such as EM algorithm are widely applied for optimization.
+\paragraph{}
+For parameters in $d$(see \ref{param}), prior probabilities $p_1$ and $p_2$ could be inferred from data. However, generally, the loss $L(1|2)$ and $L(2|1)$ are determined by decision makers and we need to find a criterion to decide the ratio. Therefore, we should regard $d$ as a tuning parameter. 
+\paragraph{}
+Based on previous analysis, our algorithm is as follows. We split the data into Training Set, Validation Set and Test Set. We first use Training Set to model the distribution of normal data ($f_1(X)$) and anomaly data ($f_2(X)$). We then use Validation Set to determine an optimal $d$. Finally, we apply the tuned $d$ to test performance on Test Set. The formal formulation is in Algorithm \ref{GMDA}.
+\\\\
+\begin{algorithm}[H]
+\label{GMDA}
+\caption{Gaussian Mixture Discriminant Analysis}
+\SetAlgoLined
+	\KwIn {\textit{T}: Training set\; \textit{V}: Validation set\; $n_1$: The number of clusters for normal data\; $n_2$: The number of clusters for anomaly data\; $D$: The list of possible choices of $d$\; $L$: An empty list to restore \textit{F-score}s.}
+	\KwOut {$f_1(X)$: Density of Normal Data\; $f_2(X)$: Density of Anomaly Data\; $d$: Threshold.}
+		Apply EM algorithm to normal data in \textit{T} to obtain a density function $f_1(X)$ with $n_1$ clusters\;
+		Apply EM algorithm to anomaly data in \textit{T} to obtain a density function $f_2(X)$ with $n_2$ clusters\;
+		\For {$d$ in $D$}{
+			Classify data in \textit{V}. If $\log f_2(X) - \log f_1(X) > d$, classify $X$ as anomaly, else normal\;
+			Compute \textit{F-score} and add it into \textit{L}\;
+		}
+		$\rho \gets \arg\max L$\;
+		\Return $f_1(X), f_2(X), D[\rho]$.
+\end{algorithm}
+ 
+\subsection{Relation and Extension with Other Methods}
+
+\subsubsection{Relation with Naive Bayes}
+\paragraph{}
+
+Naive Bayes models data using Gaussian distribution, which is similar to GMDA. However, there is much difference between Naive Bayes and GMDA.
+\begin{enumerate}
+\item For convenience of optimization, Naive Bayes use one Gaussian distribution, while we use Gaussian Mixture Model.
+\item In Naive Bayes, a crucial assumption is independence between variables. However, we do not impose this assumption. In fact, the goal of using Gaussian Mixture Model is to capture the correlation between variables.
+\end{enumerate}
+
+\subsubsection{Relation with LDA and QDA}
+\paragraph{}
+
+Both LDA and QDA (see Section \ref{DA}) model data from different classes seperately. Also, they also embed prior probabilities from Bayesian view. However, there is difference between LDA/QDA and GMDA.
+\begin{enumerate}
+\item In LDA/QDA, we model the data using one Gaussian distribution, while in GMDA we model with Gaussian Mixture.
+\item LDA/QDA use distribution of different classes to estimate prior probabilities. While in GMDA, we also embed loss of misclassification and use validation sets to tune the threshold. 
+\end{enumerate}
+
+\subsubsection{Relation with Decision Tree}
+\paragraph{}
+
+If we look at Algorithm \ref{GMDA} again, we could get further insight. First, $\log f_2(X) - \log f_1(X)$ can be thought as a projection from $\mathbb{R}^n$ to $\mathbb{R}$. Second, the validation process to choose optimal $d$ can be thought as finding a tree with one layer that maximize the \textit{F-score}. This is equivalent to maximize 
+\begin{eqt}
+\frac{2}{\frac{\text{TP}+\text{FP}}{\text{TP}}+\frac{\text{TP}+\text{FN}}{\text{TP}}} = \frac{2\text{TP}}{2\text{TP}+\text{FP}+\text{FN}},
+\end{eqt}
+or equivalently, minimize
+\begin{eqt}
+\frac{\text{FP} + \text{FN}}{\text{TP}}.
+\end{eqt}
+\paragraph{}
+In Decision Tree setting with two classes, this is, to some extent, similar to minimizing the misclassification rate. This enlighten us to combine Algorithm \ref{GMDA} with Decision Tree Classifier.
+
+\begin{algorithm}[H]
+\label{GMDA-DTC}
+\caption{GMDA with Decision Tree Classifier}
+\SetAlgoLined
+	\KwIn {\textit{T}: Training set\; \textit{V}: Validation set\; $n_1$: The number of clusters for normal data\; $n_2$: The number of clusters for anomaly data\;}
+	\KwOut {$f_1(X)$: Density of Normal Data\; $f_2(X)$: Density of Anomaly Data\; \textit{DTC}: A Decision Tree Classifier.}
+		Apply EM algorithm to normal data in \textit{T} to obtain a density function $f_1(X) = \sum_{i=1}^{n_1}\pi_if_{1, i}(X)$\;
+		Apply EM algorithm to anomaly data in \textit{T} to obtain a density function $f_2(X) = \sum_{j=1}^{n_2}\pi_if_{2, j}(X)$\;
+		Construct new features:\ $\log \frac{f_2(X)}{f_1(X)}, \log f_{1, i}(X), \log f_{2, j}(X), \log \frac{f_{2, j}(X)}{f_{1, i}(X)}\ (1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2)$\;
+		Use the new features above to build a Decision Tree Classifier\;
+		Tune the parameters using \textit{V}\;
+		\Return $f_1(X), f_2(X)$, \textit{DTC}.
+\end{algorithm}
+
 
 \section{Numerical Experiment}
 
 \section{Conclusion}
 
+
 \bibliography{reference}
 \bibliographystyle{plain}
+
+\newpage
+\begin{appendix}
+\section{Proof of Theorem \ref{optbayes}}
+\paragraph{}
+
+We have
+\begin{eqt}
+g(D^*) & = \sum_{i=1}^kp_i\sum_{j=1}^kP(j|i;D^*)L(j|i) \\
+& = \sum_{i=1}^kp_i\sum_{j=1}^kL(j|i)\int_{D_j^*}f_i(X)dX \\
+& = \sum_{j=1}^k\int_{D_j^*}\sum_{i=1}^kp_iL(j|i)f_i(X)dX \\
+& = \sum_{j=1}^k\int_{D_j^*}h_j(X)dX.
+\end{eqt}
+For any partition of $\mathbb{R}^n$, $D = \{D_1, ..., D_k\}$, we also have
+\begin{eqt}
+g(D) = \sum_{j=1}^k\int_{D_j}h_j(X)dX.
+\end{eqt}
+
+Therefore, 
+\begin{eqt}
+g(D^*) - g(D) & = \sum_{j=1}^k\int_{D_j^*}h_j(X)dX - \sum_{t=1}^k\int_{D_t}h_t(X)dX \\
+& = \sum_{j=1}^k\sum_{t=1}^k\int_{D_j^*\cap D_t}\left(h_j(X)-h_t(X)\right)dX \\
+& \leqslant 0.
+\end{eqt}
+In fact, $\forall j, t\in[k]$, we have $h_j(X)\leqslant h_t(X)$ on $D_j^*\cap D_t$ from the definition of $D^*$. This completes the proof.
+\end{appendix}
 
 \end{document}
