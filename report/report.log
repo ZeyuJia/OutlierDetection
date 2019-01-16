@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  15 JAN 2019 23:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  16 JAN 2019 21:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -513,46 +513,53 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 102.
- [2] [3] [4] [5]
+ [2] [3] [4] [5] [6]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 325.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 377.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.25002> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 325.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 377.
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--333
+Underfull \hbox (badness 10000) in paragraph at lines 369--385
 
  []
 
 
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 317--333
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 369--385
 []$[]$ 
  []
 
-[6]
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 369--381
+[7]
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 421--433
 $[]$ 
  []
 
-(./report.bbl) [7] 
+(./report.bbl [8]) [9] 
 AED: lastpage setting LastPage
-[8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 418.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 418.
+[10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 470.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 470.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 418.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 418.
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 7C3E3D663E94C794F98315A1EA0888FF;2189.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 418.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 470.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 470.
+
+
+Package rerunfilecheck Warning: File `report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `report.out':
+(rerunfilecheck)             Before: BBBBEF7A5D9F23865092E3B2E95C0294;2409
+(rerunfilecheck)             After:  E2C129753A3021C0D80C04EB42DCC1B3;2410.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 470.
  ) 
 Here is how much of TeX's memory you used:
- 8406 strings out of 492982
- 121289 string characters out of 6136225
- 227900 words of memory out of 5000000
- 11737 multiletter control sequences out of 15000+600000
- 31880 words of font info for 69 fonts, out of 8000000 for 9000
+ 8436 strings out of 492982
+ 121671 string characters out of 6136225
+ 228975 words of memory out of 5000000
+ 11744 multiletter control sequences out of 15000+600000
+ 33034 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,17n,43p,487b,435s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,17n,43p,516b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2017/texm
 f-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><c:/texlive/2017/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2017/texmf-dist/fonts/ty
@@ -568,10 +575,10 @@ fonts/symbols/msam10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msbm10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.p
 fb><c:/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/201
 7/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (8 pages, 197651 bytes).
+Output written on report.pdf (10 pages, 207588 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 311 compressed objects within 4 object streams
- 116 named destinations out of 1000 (max. 500000)
- 233 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 385 PDF objects out of 1000 (max. 8388607)
+ 353 compressed objects within 4 object streams
+ 139 named destinations out of 1000 (max. 500000)
+ 257 words of extra memory for PDF output out of 10000 (max. 10000000)
 

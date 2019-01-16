@@ -5,4 +5,16 @@ T~Chen and C~Guestrin.
 \newblock Xgboost: A scalable tree boosting system (2016).
 \newblock {\em arXiv preprint arXiv:1603.02754}.
 
+\bibitem{isolationforest}
+Fei~Tony Liu, Kai~Ming Ting, and Zhi-Hua Zhou.
+\newblock Isolation forest.
+\newblock In {\em 2008 Eighth IEEE International Conference on Data Mining},
+  pages 413--422. IEEE, 2008.
+
+\bibitem{robustcov}
+Peter~J Rousseeuw.
+\newblock Least median of squares regression.
+\newblock {\em Journal of the American statistical association},
+  79(388):871--880, 1984.
+
 \end{thebibliography}

@@ -16,14 +16,17 @@
 \BOOKMARK [3][-]{subsubsection.2.8.1}{Voting Method}{subsection.2.8}% 16
 \BOOKMARK [3][-]{subsubsection.2.8.2}{Bagging Method}{subsection.2.8}% 17
 \BOOKMARK [3][-]{subsubsection.2.8.3}{Random Forest Method}{subsection.2.8}% 18
-\BOOKMARK [1][-]{section.3}{Outlier Detection Methods}{}% 19
-\BOOKMARK [1][-]{section.4}{Our Idea: Clustering-Based Modelling Methods}{}% 20
-\BOOKMARK [2][-]{subsection.4.1}{Bayesian Decision Theory}{section.4}% 21
-\BOOKMARK [2][-]{subsection.4.2}{GMDA: Gaussian Mixture Discriminant Analysis}{section.4}% 22
-\BOOKMARK [2][-]{subsection.4.3}{Relation and Extension with Other Methods}{section.4}% 23
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Relation with Naive Bayes}{subsection.4.3}% 24
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Relation with LDA and QDA}{subsection.4.3}% 25
-\BOOKMARK [3][-]{subsubsection.4.3.3}{Relation with Decision Tree}{subsection.4.3}% 26
-\BOOKMARK [1][-]{section.5}{Numerical Experiment}{}% 27
-\BOOKMARK [1][-]{section.6}{Conclusion}{}% 28
-\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 29
+\BOOKMARK [1][-]{section.3}{Outlier/Novelty Detection Methods}{}% 19
+\BOOKMARK [2][-]{subsection.3.1}{Robust Covariance Estimator}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.2}{Isolation Forest}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.3}{Local Outlier Factor}{section.3}% 22
+\BOOKMARK [1][-]{section.4}{Our Idea: Clustering-Based Modelling Methods}{}% 23
+\BOOKMARK [2][-]{subsection.4.1}{Bayesian Decision Theory}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.2}{GMDA: Gaussian Mixture Discriminant Analysis}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.3}{Relation and Extension with Other Methods}{section.4}% 26
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Relation with Naive Bayes}{subsection.4.3}% 27
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Relation with LDA and QDA}{subsection.4.3}% 28
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Relation with Decision Tree}{subsection.4.3}% 29
+\BOOKMARK [1][-]{section.5}{Numerical Experiment}{}% 30
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 31
+\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 32

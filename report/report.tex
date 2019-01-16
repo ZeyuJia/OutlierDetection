@@ -253,7 +253,59 @@ Then it is easy to calculate
 \subsubsection{Random Forest Method}
 \par The well-known random forest method is based on bagging method, but random forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data applied bootstrap technique, but also the features are selected randomly.
 
-\section{Outlier Detection Methods}
+\section{Outlier/Novelty Detection Methods}
+
+\paragraph{}
+In this section, we will introduce some standard outlier detection methods. All these methods assume loss of labels and try to empirically figure out whether a collected data point is an ``outlier"(Outlier Detection) or an new data point is a ``novelty"(Novelty Detection). 
+
+\subsection{Robust Covariance Estimator}
+\paragraph{}
+The estimator is also called Minimum Covariance Determinant (MCD) estimator. It is, to some extent, similar to LDA. However, since it assumes lack of label, the algorithm only fits one Gaussian distribution to model the normal data. To fit the data robustly, it tries to find 
+\begin{eqt}
+\frac{n_{\textit{samples}}+n_{\textit{features}}+1}{2}
+\end{eqt}
+observations whose empirical covariance has the smallest determinant and yields a ``pure" subset of observations from which we can estimate so-called Mahalanobis distance for any data point $x$, i.e., 
+\begin{eqt}
+d(x; \mu, \Sigma) = (x-\mu)'\Sigma^{-1}(x-\mu).
+\end{eqt}
+\paragraph{}
+If it's value is too large, then $x$ is classified as an anomaly, else a normal data point. For more detailed description, readers could refer to \cite{robustcov}.
+
+
+\subsection{Isolation Forest}
+\paragraph{}
+The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to isolate a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, which is regarded as a measure of normality. 
+\paragraph{}
+The anomaly score in this algorithm is defined as 
+\begin{eqt}
+s(X, n) = 2^{-\frac{E[h(X)]}{c(n)}},
+\end{eqt}
+where $h(X)$ is the path length of observation $X$, $E[h(X)]$ is the average of $h(X)$ through the forest of trees, $c(n)$ is the average path length of unsuccessful search in a Binary Search Tree and $n$ is the number of external nodes. More on the anomaly score and its components can be found in \cite{isolationforest}.
+\paragraph{}
+In fact, random partitioning produces shorter paths for anomalies because anomalies have high probability of being close to the extreme values of a feature. Hence, if for a particular sample, the forest of random trees collectively produce shorter path lengths, it is highly likely to be an anomaly.
+
+
+\subsection{Local Outlier Factor}
+\paragraph{}
+The algorithm computes a score (called local outlier factor) to reflect the degree of abnormality of the observations. It measures the local density deviation of a given data point with respect to its neighbors. The idea is to detect the samples that have a substantially lower density than their neighbors.
+\paragraph{}
+Commonly, the local density is obtained from KNN. The LOF score of an observation is equal to the ratio of the average local density of his $k$-nearest neighbors and its own local density. A normal instance is expected to have a local density similar to that of its neighbors, while abnormal data are expected to have much smaller local density.
+\paragraph{}
+Now let us describe the algorihm more rigirously. Denote $N_k(X)$ as the set of the first $k$ nearest neighbors of data point $X$ and $d(X, Y)$ as the distance between $X$ and $Y$. Define $d_k(X)$ as the distance between $X$ and its $k$th nearest neighbor. The reachability distance between $X$ and $Y$ is defined as
+\begin{eqt}
+\textit{rd}_k(X, Y) = \max\{d_k(Y), d(X, Y)\}.
+\end{eqt}
+The local reachability of $X$ is defined as 
+\begin{eqt}
+\textit{lrd}_k(X) = \frac{|N_k(X)|}{\sum_{Y\in N_k(X)}\textit{rd}_k(X, Y)}.
+\end{eqt}
+The local outlier factor of $X$ is defined as 
+\begin{eqt}
+\textit{lof}_k(X) = \frac{\sum_{Y\in N_k(X)}\textit{lrd}_k(Y)}{|N_k(X)|\textit{lrd}_k(X)}.
+\end{eqt}
+\paragraph{}
+If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. In practice, the proportion of outliers is given by decision makers as an input and the threshold is computed by the algorithm. 
+
 
 \section{Our Idea: Clustering-Based Modelling Methods}
 \paragraph{}
@@ -346,7 +398,7 @@ Naive Bayes models data using Gaussian distribution, which is similar to GMDA. H
 \subsubsection{Relation with LDA and QDA}
 \paragraph{}
 
-Both LDA and QDA (see Section \ref{DA}) model data from different classes seperately. Also, they also embed prior probabilities from Bayesian view. However, there is difference between LDA/QDA and GMDA.
+Both LDA and QDA (see Section \ref{DA}) model data from different classes seperately. Also, they embed prior probabilities from Bayesian view. However, there is difference between LDA/QDA and GMDA.
 \begin{enumerate}
 \item In LDA/QDA, we model the data using one Gaussian distribution, while in GMDA we model with Gaussian Mixture.
 \item LDA/QDA use distribution of different classes to estimate prior probabilities. While in GMDA, we also embed loss of misclassification and use validation sets to tune the threshold. 
@@ -357,7 +409,7 @@ Both LDA and QDA (see Section \ref{DA}) model data from different classes sepera
 
 If we look at Algorithm \ref{GMDA} again, we could get further insight. First, $\log f_2(X) - \log f_1(X)$ can be thought as a projection from $\mathbb{R}^n$ to $\mathbb{R}$. Second, the validation process to choose optimal $d$ can be thought as finding a tree with one layer that maximize the \textit{F-score}. This is equivalent to maximize 
 \begin{eqt}
-\frac{2}{\frac{\text{TP}+\text{FP}}{\text{TP}}+\frac{\text{TP}+\text{FN}}{\text{TP}}} = \frac{2\text{TP}}{2\text{TP}+\text{FP}+\text{FN}},
+2\bigg/\left(\frac{\text{TP}+\text{FP}}{\text{TP}}+\frac{\text{TP}+\text{FN}}{\text{TP}}\right) = \frac{2\text{TP}}{2\text{TP}+\text{FP}+\text{FN}},
 \end{eqt}
 or equivalently, minimize
 \begin{eqt}
