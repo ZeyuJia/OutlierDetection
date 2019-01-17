@@ -12,6 +12,7 @@
 \usepackage{subfigure}
 \usepackage[linesnumbered, ruled]{algorithm2e}
 \usepackage{algpseudocode}
+\usepackage{indentfirst}
 \newenvironment{eqt}{\begin{equation}\begin{aligned}}{\end{aligned}\end{equation}}
 \newtheorem{defn}{Definition}[section]
 \newtheorem{thm}{Theorem}[section]
@@ -255,11 +256,11 @@ Then it is easy to calculate
 
 \section{Outlier/Novelty Detection Methods}
 
-\paragraph{}
+\par
 In this section, we will introduce some standard outlier detection methods. All these methods assume loss of labels and try to empirically figure out whether a collected data point is an ``outlier"(Outlier Detection) or an new data point is a ``novelty"(Novelty Detection). 
 
 \subsection{Robust Covariance Estimator}
-\paragraph{}
+\par
 The estimator is also called Minimum Covariance Determinant (MCD) estimator. It is, to some extent, similar to LDA. However, since it assumes lack of label, the algorithm only fits one Gaussian distribution to model the normal data. To fit the data robustly, it tries to find 
 \begin{eqt}
 \frac{n_{\textit{samples}}+n_{\textit{features}}+1}{2}
@@ -268,29 +269,27 @@ observations whose empirical covariance has the smallest determinant and yields 
 \begin{eqt}
 d(x; \mu, \Sigma) = (x-\mu)'\Sigma^{-1}(x-\mu).
 \end{eqt}
-\paragraph{}
+\par
 If it's value is too large, then $x$ is classified as an anomaly, else a normal data point. For more detailed description, readers could refer to \cite{robustcov}.
 
 
 \subsection{Isolation Forest}
-\paragraph{}
-The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to isolate a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, which is regarded as a measure of normality. 
-\paragraph{}
-The anomaly score in this algorithm is defined as 
+\par
+The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to isolate a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, and embedded in an anomaly score, which is regarded as a measure of normality. The anomaly score in this algorithm is defined as 
 \begin{eqt}
 s(X, n) = 2^{-\frac{E[h(X)]}{c(n)}},
 \end{eqt}
 where $h(X)$ is the path length of observation $X$, $E[h(X)]$ is the average of $h(X)$ through the forest of trees, $c(n)$ is the average path length of unsuccessful search in a Binary Search Tree and $n$ is the number of external nodes. More on the anomaly score and its components can be found in \cite{isolationforest}.
-\paragraph{}
+\par
 In fact, random partitioning produces shorter paths for anomalies because anomalies have high probability of being close to the extreme values of a feature. Hence, if for a particular sample, the forest of random trees collectively produce shorter path lengths, it is highly likely to be an anomaly.
 
 
 \subsection{Local Outlier Factor}
-\paragraph{}
+\par
 The algorithm computes a score (called local outlier factor) to reflect the degree of abnormality of the observations. It measures the local density deviation of a given data point with respect to its neighbors. The idea is to detect the samples that have a substantially lower density than their neighbors.
-\paragraph{}
+\par
 Commonly, the local density is obtained from KNN. The LOF score of an observation is equal to the ratio of the average local density of his $k$-nearest neighbors and its own local density. A normal instance is expected to have a local density similar to that of its neighbors, while abnormal data are expected to have much smaller local density.
-\paragraph{}
+\par
 Now let us describe the algorihm more rigirously. Denote $N_k(X)$ as the set of the first $k$ nearest neighbors of data point $X$ and $d(X, Y)$ as the distance between $X$ and $Y$. Define $d_k(X)$ as the distance between $X$ and its $k$th nearest neighbor. The reachability distance between $X$ and $Y$ is defined as
 \begin{eqt}
 \textit{rd}_k(X, Y) = \max\{d_k(Y), d(X, Y)\}.
@@ -303,16 +302,16 @@ The local outlier factor of $X$ is defined as
 \begin{eqt}
 \textit{lof}_k(X) = \frac{\sum_{Y\in N_k(X)}\textit{lrd}_k(Y)}{|N_k(X)|\textit{lrd}_k(X)}.
 \end{eqt}
-\paragraph{}
+\par
 If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. In practice, the proportion of outliers is given by decision makers as an input and the threshold is computed by the algorithm. 
 
 
 \section{Our Idea: Clustering-Based Modelling Methods}
-\paragraph{}
+\par
 In this part, we will explicitly describe our algorithm on outlier classification. We focus on seperately modelling data distribution with different labels and apply a variant of Bayesian decision theory for classification. Such idea can be easily integrated with other supervised or unsupervised learning technique such as decision tree and EM algorithm.
 
 \subsection{Bayesian Decision Theory}
-\paragraph{}
+\par
 We assume the following conditions.
 \begin{enumerate}
 \item Suppose there are $k$ different classes $G_1, ..., G_k$. 
@@ -320,7 +319,7 @@ We assume the following conditions.
 \item Let $L(j|i)$ be the loss when we classify an object in $G_i$ to $G_j$. Generally, when $i=j$, $L(j|i) = 0$.
 \item Let $P(j|i;D)$ be the probability that we classify an object in $G_i$ into $G_j$ under the criterion $D$.
 \end{enumerate}
-\paragraph{}
+\par
 With these assumptions, we now obtain the following definition.
 
 \begin{defn}
@@ -343,7 +342,7 @@ where $h_j(X) = \sum_{i=1}^kp_iL(j|i)f_i(X)$, i.e., the average loss when we cla
 \begin{proof}
 For detailed proof, please see the appendix.
 \end{proof}
-\paragraph{}
+\par
 In our setting, $k=2$. Then from Theorem \ref{optbayes},
 \begin{eqt}
 h_1(X) = p_2f_2(X)L(1|2),\indent h_2(X) = p_1f_1(X)L(2|1)
@@ -361,11 +360,11 @@ W(X) = \frac{f_1(X)}{f_2(X)},\indent d = \frac{p_2L(1|2)}{p_1L(2|1)}.
 Once we obtain the densities, the prior probabilities and the loss, we could make optimal Bayesian decision.
 
 \subsection{GMDA: Gaussian Mixture Discriminant Analysis}
-\paragraph{}
+\par
 To determine the density $f(X)$, we have numerous choices. For both fitness of generalization and speed of optimization, we choose to model $f(X)$ using Gaussian Mixture. Many kinds of data in real life can be well approximated by this model and well-performed algorithms such as EM algorithm are widely applied for optimization.
-\paragraph{}
+\par
 For parameters in $d$(see \ref{param}), prior probabilities $p_1$ and $p_2$ could be inferred from data. However, generally, the loss $L(1|2)$ and $L(2|1)$ are determined by decision makers and we need to find a criterion to decide the ratio. Therefore, we should regard $d$ as a tuning parameter. 
-\paragraph{}
+\par
 Based on previous analysis, our algorithm is as follows. We split the data into Training Set, Validation Set and Test Set. We first use Training Set to model the distribution of normal data ($f_1(X)$) and anomaly data ($f_2(X)$). We then use Validation Set to determine an optimal $d$. Finally, we apply the tuned $d$ to test performance on Test Set. The formal formulation is in Algorithm \ref{GMDA}.
 \\\\
 \begin{algorithm}[H]
@@ -387,7 +386,7 @@ Based on previous analysis, our algorithm is as follows. We split the data into 
 \subsection{Relation and Extension with Other Methods}
 
 \subsubsection{Relation with Naive Bayes}
-\paragraph{}
+\par
 
 Naive Bayes models data using Gaussian distribution, which is similar to GMDA. However, there is much difference between Naive Bayes and GMDA.
 \begin{enumerate}
@@ -396,7 +395,7 @@ Naive Bayes models data using Gaussian distribution, which is similar to GMDA. H
 \end{enumerate}
 
 \subsubsection{Relation with LDA and QDA}
-\paragraph{}
+\par
 
 Both LDA and QDA (see Section \ref{DA}) model data from different classes seperately. Also, they embed prior probabilities from Bayesian view. However, there is difference between LDA/QDA and GMDA.
 \begin{enumerate}
@@ -405,7 +404,7 @@ Both LDA and QDA (see Section \ref{DA}) model data from different classes sepera
 \end{enumerate}
 
 \subsubsection{Relation with Decision Tree}
-\paragraph{}
+\par
 
 If we look at Algorithm \ref{GMDA} again, we could get further insight. First, $\log f_2(X) - \log f_1(X)$ can be thought as a projection from $\mathbb{R}^n$ to $\mathbb{R}$. Second, the validation process to choose optimal $d$ can be thought as finding a tree with one layer that maximize the \textit{F-score}. This is equivalent to maximize 
 \begin{eqt}
@@ -415,7 +414,7 @@ or equivalently, minimize
 \begin{eqt}
 \frac{\text{FP} + \text{FN}}{\text{TP}}.
 \end{eqt}
-\paragraph{}
+\par
 In Decision Tree setting with two classes, this is, to some extent, similar to minimizing the misclassification rate. This enlighten us to combine Algorithm \ref{GMDA} with Decision Tree Classifier.
 
 \begin{algorithm}[H]
@@ -444,7 +443,7 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 \newpage
 \begin{appendix}
 \section{Proof of Theorem \ref{optbayes}}
-\paragraph{}
+\par
 
 We have
 \begin{eqt}
