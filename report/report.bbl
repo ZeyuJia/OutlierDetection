@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{lof}
+Markus~M Breunig, Hans-Peter Kriegel, Raymond~T Ng, and J{\"o}rg Sander.
+\newblock Lof: identifying density-based local outliers.
+\newblock In {\em ACM sigmod record}, volume~29, pages 93--104. ACM, 2000.
+
 \bibitem{chen1603xgboost}
 T~Chen and C~Guestrin.
 \newblock Xgboost: A scalable tree boosting system (2016).

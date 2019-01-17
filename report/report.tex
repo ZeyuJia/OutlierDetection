@@ -302,9 +302,9 @@ The local outlier factor of $X$ is defined as
 \begin{eqt}
 \textit{lof}_k(X) = \frac{\sum_{Y\in N_k(X)}\textit{lrd}_k(Y)}{|N_k(X)|\textit{lrd}_k(X)}.
 \end{eqt}
-\par
-If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. In practice, the proportion of outliers is given by decision makers as an input and the threshold is computed by the algorithm. 
 
+\paragraph{}
+If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. In practice, the proportion of outliers is given by decision makers as an input and the threshold is computed by the algorithm. For more detailed description of the algorithm, readers could refer to \cite{lof}.
 
 \section{Our Idea: Clustering-Based Modelling Methods}
 \par
