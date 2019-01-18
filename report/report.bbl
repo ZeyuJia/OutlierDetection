@@ -10,11 +10,23 @@ T~Chen and C~Guestrin.
 \newblock Xgboost: A scalable tree boosting system (2016).
 \newblock {\em arXiv preprint arXiv:1603.02754}.
 
+\bibitem{friedman2001elements}
+Jerome Friedman, Trevor Hastie, and Robert Tibshirani.
+\newblock {\em The elements of statistical learning}, volume~1.
+\newblock Springer series in statistics New York, NY, USA:, 2001.
+
 \bibitem{isolationforest}
 Fei~Tony Liu, Kai~Ming Ting, and Zhi-Hua Zhou.
 \newblock Isolation forest.
 \newblock In {\em 2008 Eighth IEEE International Conference on Data Mining},
   pages 413--422. IEEE, 2008.
+
+\bibitem{scikit-learn}
+F.~Pedregosa, G.~Varoquaux, A.~Gramfort, V.~Michel, B.~Thirion, O.~Grisel,
+  M.~Blondel, P.~Prettenhofer, R.~Weiss, V.~Dubourg, J.~Vanderplas, A.~Passos,
+  D.~Cournapeau, M.~Brucher, M.~Perrot, and E.~Duchesnay.
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
 
 \bibitem{robustcov}
 Peter~J Rousseeuw.
