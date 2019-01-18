@@ -1,16 +1,12 @@
 import numpy as np
 import pandas as pd
-import seaborn as sns
+import xgboost as xgb
 import matplotlib.pyplot as plt
 from time import time
-from mpl_toolkits.mplot3d import Axes3D
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import IsolationForest
 from sklearn.ensemble import VotingClassifier
 from sklearn.mixture import GaussianMixture
-from sklearn.neighbors import LocalOutlierFactor
-from sklearn.covariance import EmpiricalCovariance, MinCovDet
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import fbeta_score, precision_score, recall_score, \
     confusion_matrix, roc_curve, roc_auc_score
@@ -50,7 +46,7 @@ def result(sets, predict):
     precision = precision_score(y_true=sets['Class'].values, y_pred=predict)
     fbeta = fbeta_score(y_true=sets['Class'].values, y_pred=predict, beta=1.5)
 
-    print('& {0:.2f} & {1:.2f} & {2:.2f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
+    print('& {0:.1f} & {1:.1f} & {2:.1f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
 
 class GMM():
 
@@ -144,11 +140,11 @@ def result_all(predictor):
 
 
 train_start = time()
-gmm = GMM(n_anomaly=4)
+gmm = GMM(n_anomaly=3)
 gmm.fit(train_normal, train_anomaly)
 train_end = time()
 
-gmm.Valid(valid, np.linspace(50, 150, 101))
+gmm.Valid(valid, np.linspace(50, 200, 101))
 
 print('GMDA ', end='')
 gmm.Test(train)
@@ -157,45 +153,6 @@ test_start = time()
 gmm.Test(test)
 test_end = time()
 print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
-
-
-print('GM-dtc ', end='')
-train_start = time()
-dtc = DecisionTreeClassifier(criterion='entropy', max_depth=5).fit(feature(gmm, train).T, train['Class'])
-train_end = time()
-test_time = result_all(dtc)
-print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
-
-
-bgc = BaggingClassifier(base_estimator=DecisionTreeClassifier(criterion='entropy', max_depth=5),
-                        bootstrap_features=False, n_estimators=11)
-print('GM-bagging ', end='')
-train_start = time()
-bgc.fit(feature(gmm, train).T, train['Class'])
-train_end = time()
-test_time = result_all(bgc)
-print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
-
-
-estimators = [
-              #('dtc1',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.01})),
-              ('dtc2',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.02})),
-              ('dtc3',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.05})),
-              ('dtc4',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.1})),
-              ('dtc5',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:1})),
-              ('dtc6',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:10})),
-              ('dtc7',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:20})),
-              ('dtc8',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:50})),
-              #('dtc9',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:100})),
-             ]
-vtc = VotingClassifier(estimators=estimators, voting='soft')#, weights=[1, 1.1, 1.1, 1.1, 1.1, 1])
-
-print('GM-voting ', end='')
-train_start = time()
-bgc.fit(feature(gmm, train).T, train['Class'])
-train_end = time()
-test_time = result_all(bgc)
-print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 x = valid
@@ -226,3 +183,50 @@ predict = (gmm.normal.score_samples(test.drop(columns=['Class'])) <= p).astype(n
 result(test, predict)
 test_end = time()
 print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
+
+
+print('GM-dtc ', end='')
+train_start = time()
+dtc = DecisionTreeClassifier(criterion='entropy', max_depth=5).fit(feature(gmm, train).T, train['Class'])
+train_end = time()
+test_time = result_all(dtc)
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
+
+
+bgc = BaggingClassifier(base_estimator=DecisionTreeClassifier(criterion='entropy', max_depth=5),
+                        bootstrap_features=False, n_estimators=11)
+print('GM-bag ', end='')
+train_start = time()
+bgc.fit(feature(gmm, train).T, train['Class'])
+train_end = time()
+test_time = result_all(bgc)
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
+
+
+estimators = [
+              ('dtc1',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.01})),
+              ('dtc2',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.02})),
+              ('dtc3',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.05})),
+              ('dtc4',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.1})),
+              ('dtc5',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:1})),
+              ('dtc6',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:10})),
+              ('dtc7',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:20})),
+              ('dtc8',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:50})),
+              ('dtc9',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:100})),
+             ]
+vtc = VotingClassifier(estimators=estimators, voting='soft')#, weights=[1, 1.1, 1.1, 1.1, 1.1, 1])
+
+print('GM-vote ', end='')
+train_start = time()
+bgc.fit(feature(gmm, train).T, train['Class'])
+train_end = time()
+test_time = result_all(bgc)
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
+
+
+print('GM-xgb ', end='')
+train_start = time()
+xg = xgb.XGBClassifier(max_depth=5, reg_alpha=0.2).fit(feature(gmm, train).T, train['Class'])
+train_end = time()
+test_time = result_all(xg)
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
