@@ -50,7 +50,7 @@ def result(sets, predict):
     precision = precision_score(y_true=sets['Class'].values, y_pred=predict)
     fbeta = fbeta_score(y_true=sets['Class'].values, y_pred=predict, beta=1.5)
 
-    print('& {0:.1f} & {1:.1f} & {2:.1f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
+    print('& {0:.2f} & {1:.2f} & {2:.2f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
 
 class GMM():
 
