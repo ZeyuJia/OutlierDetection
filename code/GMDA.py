@@ -118,9 +118,9 @@ def feature(self, sets):
     features = normal_score - anomaly_score
     features = np.concatenate((features, feature_normal, feature_anomaly), axis=0)
 
-    for i in range(len(feature_normal)):
-        for j in range(len(feature_anomaly)):
-            features = np.append(features, np.array([feature_normal[i] - feature_anomaly[j]]), axis=0)
+    #for i in range(len(feature_normal)):
+    #    for j in range(len(feature_anomaly)):
+    #        features = np.append(features, np.array([feature_normal[i] - feature_anomaly[j]]), axis=0)
 
     return features
 
@@ -156,7 +156,7 @@ gmm.Test(valid)
 test_start = time()
 gmm.Test(test)
 test_end = time()
-print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
 
 
 print('GM-dtc ', end='')
@@ -164,7 +164,7 @@ train_start = time()
 dtc = DecisionTreeClassifier(criterion='entropy', max_depth=5).fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(dtc)
-print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 bgc = BaggingClassifier(base_estimator=DecisionTreeClassifier(criterion='entropy', max_depth=5),
@@ -174,11 +174,11 @@ train_start = time()
 bgc.fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(bgc)
-print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 estimators = [
-              ('dtc1',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.01})),
+              #('dtc1',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.01})),
               ('dtc2',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.02})),
               ('dtc3',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.05})),
               ('dtc4',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:0.1})),
@@ -186,7 +186,7 @@ estimators = [
               ('dtc6',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:10})),
               ('dtc7',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:20})),
               ('dtc8',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:50})),
-              ('dtc9',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:100})),
+              #('dtc9',DecisionTreeClassifier(criterion='entropy', max_depth=5, class_weight={0:1, 1:100})),
              ]
 vtc = VotingClassifier(estimators=estimators, voting='soft')#, weights=[1, 1.1, 1.1, 1.1, 1.1, 1])
 
@@ -195,7 +195,7 @@ train_start = time()
 bgc.fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(bgc)
-print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 x = valid
@@ -225,4 +225,4 @@ test_start = time()
 predict = (gmm.normal.score_samples(test.drop(columns=['Class'])) <= p).astype(np.int32)
 result(test, predict)
 test_end = time()
-print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
+print('& {0:.2f} & {1:.2f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
