@@ -272,6 +272,7 @@ The estimator is also called Minimum Covariance Determinant (MCD) estimator. It 
 \end{eqt}
 observations whose empirical covariance has the smallest determinant and yields a ``pure" subset of observations from which we can estimate so-called Mahalanobis distance for any data point $x$, i.e., 
 \begin{eqt}
+\label{mahadist}
 d(x; \mu, \Sigma) = (x-\mu)'\Sigma^{-1}(x-\mu).
 \end{eqt}
 \par
@@ -408,6 +409,11 @@ Both LDA and QDA (see Section \ref{DA}) model data from different classes sepera
 \item LDA/QDA use distribution of different classes to estimate prior probabilities. While in GMDA, we also embed loss of misclassification and use validation sets to tune the threshold. 
 \end{enumerate}
 
+\subsubsection{Relation with Robust Covariance Estimator(RCE)}
+\par
+
+A big difference between RCE and GMDA is that RCE only models one class of data, i.e., the normal data. Enlightened by RCE, we can combine the two algorithms with each other. We can use normal data in the training set to find a Gaussian Mixture model, and then directly tuning the threshold on validation set without further model anomaly data. This is GMDA with normal data only, ``GMDA-n".
+
 \subsubsection{Relation with Decision Tree}
 \par
 
@@ -430,7 +436,7 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 	\KwOut {$f_1(X)$: Density of Normal Data\; $f_2(X)$: Density of Anomaly Data\; \textit{DTC}: A Decision Tree Classifier.}
 		Apply EM algorithm to normal data in \textit{T} to obtain a density function $f_1(X) = \sum_{i=1}^{n_1}\pi_if_{1, i}(X)$\;
 		Apply EM algorithm to anomaly data in \textit{T} to obtain a density function $f_2(X) = \sum_{j=1}^{n_2}\pi_if_{2, j}(X)$\;
-		Construct new features:\ $\log \frac{f_2(X)}{f_1(X)}, \log f_{1, i}(X), \log f_{2, j}(X), \log \frac{f_{2, j}(X)}{f_{1, i}(X)}\ (1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2)$\;
+		Construct new features with $f_1(X)$, $f_2(X)$, $f_{1, i}(X)$, $f_{2, j}(X)$$(1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2)$\;
 		Use the new features above to build a Decision Tree Classifier\;
 		Tune the parameters using \textit{V}\;
 		\Return $f_1(X), f_2(X)$, \textit{DTC}.
@@ -443,22 +449,27 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 \subsection{Supervised Learning Methods}
 \par For supervised learning methods, we have implemented several methods. The setting of these methods are described below
 \begin{itemize}
-	\item\textbf{Decision Tree: } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the maximum depth of the tree to be 6. Furthermore, we have done experiments with weighted tree, whose purpose is to balance the number of instances in each class. We have chosen two type of weights: $1:5$ and $1:10$.
-	\item\textbf{LDA with bagging: }We choose the number of bagging LDA estimators to be 5.
-	\item\textbf{QDA with bagging: }We choose the number of bagging QDA estimators to be 11.
-	\item\textbf{Random Forest: } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the number of estimators to be .
-	\item\textbf{XGBoost: }We choose the maximum depth of each tree to be 4, regularization term $\lambda$ to be 0.5 and $\gamma$ to be 0.
-	\item\textbf{Neural Network: }We choose the structure of the neural network to be a 4-layer fully connected neural network, with 5, 4, 3, 3 neurons in each layers respectively.
+	\item\textbf{Decision Tree(DTC): } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the maximum depth of the tree to be 6. Furthermore, we have done experiments with weighted tree, whose purpose is to balance the number of instances in each class. We have chosen two type of weights: $1:5$ and $1:10$.
+	\item\textbf{LDA with bagging(LDA-Bag): }We choose the number of bagging LDA estimators to be 5.
+	\item\textbf{QDA with bagging(QDA-Bag): }We choose the number of bagging QDA estimators to be 11.
+	\item\textbf{Random Forest(RF): } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the number of estimators to be .
+	\item\textbf{XGBoost(XGB): }We choose the maximum depth of each tree to be 4, regularization term $\lambda$ to be 0.5 and $\gamma$ to be 0.
+	\item\textbf{Neural Network(NN): }We choose the structure of the neural network to be a 4-layer fully connected neural network, with 5, 4, 3, 3 neurons in each layers respectively.
 \end{itemize}
 
 \subsection{Outlier Detection Methods}
-
+\par For outier detection methods, we have implemented three algorithms mentioned above. The parameters are as follows.
+\begin{itemize}
+\item \textbf{Robust Covariance Estimation(RCE): } We directly run the fitting process of the algorithm on the training set, which contains both normal and anomaly data. We then tune the threshold for $d$ (see \ref{mahadist}) using validation set. The optimal threshold we select is $1.01 \times 10^6$. 
+\item \textbf{Local Outlier Factor(LOF): } We set the number of neighbors $k$ to be 50 and the proportion of outliers as 0.0008. During the training process, we only use the normal data in the training set because we observe that directly running the fitting process on the whole training set will worsen the performance.
+\item \textbf{Isolation Forest(ILF): } We set the number of trees to be 250 and the proportion of outliers as 0.005. We only use the normal data in the training set, as what we have done in Local Outlier Factor. 
+\end{itemize}
 \subsection{Gaussian Mixture Models Methods}
 
 \subsection{Comparison between Different Methods}
 \par We have implemented several previous described algorithms together with algorithms proposed by ourselves on .
 
-\begin{table}
+\begin{table}[htbp]
 	\centering
 	\setlength{\belowcaptionskip}{10pt}
 	\caption{}
@@ -472,11 +483,11 @@ Logistic & 58.6 & 85.2 & 64.9 & 61.2 & 88.2 & 67.6 & 59.6 & 86.8 & 66.0 & 8.88 &
 \hline
 NB & 82.4 & 5.9 & 16.5 & 84.7 & 6.1 & 17.1 & 82.8 & 5.8 & 16.2 & 0.09 & 0.02\\
 \hline
-Tree & 83.4 & 98.4 & 87.5 & 81.6 & 90.9 & 84.3 & 79.8 & 91.9 & 83.2 & 4.02 & 0.01\\
+DTC & 83.4 & 98.4 & 87.5 & 81.6 & 90.9 & 84.3 & 79.8 & 91.9 & 83.2 & 4.02 & 0.01\\
 \hline
-Tree 1:5 & 84.7 & 98.0 & 88.4 & 79.6 & 91.8 & 83.0 & 76.8 & 92.7 & 81.1 & 4.19 & 0.01\\
+DTC 1:5 & 84.7 & 98.0 & 88.4 & 79.6 & 91.8 & 83.0 & 76.8 & 92.7 & 81.1 & 4.19 & 0.01\\
 \hline
-Tree 1:10 & 85.8 & 94.1 & 88.2 & 83.7 & 87.2 & 84.7 & 79.8 & 86.8 & 81.8 & 4.16 & 0.01\\
+DTC 1:10 & 85.8 & 94.1 & 88.2 & 83.7 & 87.2 & 84.7 & 79.8 & 86.8 & 81.8 & 4.16 & 0.01\\
 \hline
 LDA & 74.2 & 85.5 & 77.4 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 0.70 & 0.01\\
 \hline
@@ -494,13 +505,13 @@ XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & 94.2 & 85.9 & 80.8 & 94.1 & 84.5 & 37.29 &
 \hline
 GMDA & 79.3 & 81.0 & 79.8 & 83.7 & 82.8 & 83.4 & 79.8 & 83.2 & 80.8 & 53.76 & 0.13 \\
 \hline
-GM-dtc & 85.1 & 92.3 & 87.2 & 83.7 & 87.2 & 84.7 & 80.8 & 90.9 & 83.7 & 4.27 & 0.24 \\
-\hline
-GM-bagging & 85.4 & 94.4 & 88.0 & 81.6 & 87.9 & 83.5 & 75.8 & 90.4 & 79.7 & 24.36 & 0.30 \\
-\hline
-GM-voting & 85.8 & 94.4 & 88.2 & 82.7 & 89.0 & 84.5 & 77.8 & 93.9 & 82.1 & 23.12 & 0.29 \\
-\hline
 GMDA-n & 77.6 & 82.1 & 78.9 & 84.7 & 83.0 & 84.2 & 79.8 & 84.9 & 81.3 & 7.33 & 0.07 \\
+\hline
+GM-DTC & 85.1 & 92.3 & 87.2 & 83.7 & 87.2 & 84.7 & 80.8 & 90.9 & 83.7 & 4.27 & 0.24 \\
+\hline
+GM-Bag & 85.4 & 94.4 & 88.0 & 81.6 & 87.9 & 83.5 & 75.8 & 90.4 & 79.7 & 24.36 & 0.30 \\
+\hline
+GM-Vote & 85.8 & 94.4 & 88.2 & 82.7 & 89.0 & 84.5 & 77.8 & 93.9 & 82.1 & 23.12 & 0.29 \\
 \hline
 	\end{tabular}
 \end{table}
