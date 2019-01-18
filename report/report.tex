@@ -101,6 +101,7 @@ where parameters $\mu_{y}$ and $\sigma_{y}$ are determined by maximum likelihood
 \par The training of a decision tree is often divided into two parts: splitting and pruning. In the splitting part, the decision tree will expand their leaves. That is, finding a new features (often the one with the most reduction of the loss) and then split one of the tree leaf into two new leaves. In the pruning process, some of leaves will merged into one, if merging them can decrease the value of loss plus regularization.
 
 \subsubsection{Weighted Decision Tree}
+\label{weightdtc}
 \par Weighted decision tree is a useful model in tackling cases where number of instances in each class varies a lot.
 \par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we multiply instances in each class by a weight. After doing that, we aim to let instance weight in each class multiplied by the number of instances in that class not vary a lot. (This has the same effect as duplicating instances in minor classes several times.) Then we will train a decision tree with these instances and weights.
 \par Adopting this technique, the inclination to classify a new instance to major classes reduces a lot.
@@ -464,7 +465,25 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 \item \textbf{Local Outlier Factor(LOF): } We set the number of neighbors $k$ to be 50 and the proportion of outliers as 0.0008. During the training process, we only use the normal data in the training set because we observe that directly running the fitting process on the whole training set will worsen the performance.
 \item \textbf{Isolation Forest(ILF): } We set the number of trees to be 250 and the proportion of outliers as 0.005. We only use the normal data in the training set, as what we have done in Local Outlier Factor. 
 \end{itemize}
-\subsection{Gaussian Mixture Models Methods}
+\subsection{GMDA and Related Methods}
+\par We have also implemented several algorithms related to GMDA. We now explain them as follows.
+\begin{itemize}
+\item \textbf{Gaussian Mixture Discriminant Analysis(GMDA): } We model normal data with $n_1=3$ clusters and anomaly data with $n_2=3$ clusters in the training set. Note that all of the following methods are based on the two fitted gaussian mixture (normal and anomaly). 
+\item \textbf{Gaussian Mixture Discriminant Analysis with notmal data only(GMDA-n): } We use the fitted distribution of normal data obtained by GMDA. 
+\item \textbf{Gaussian Mixture with Decision Tree Classifier(GM-DTC): } The algorithm is consistent with \ref{GMDA-DTC}. The features we select are
+\begin{eqt}
+\label{feature}
+f_1(X) - f_2(X), \ f_{1, i}(X), \ f_{2, j}(X)\ (1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2).
+\end{eqt}
+We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the maximal depth of the tree to 5. 
+\item \textbf{Gaussian Mixture with Bagging(GM-bag): } This algorithm is based on GM-DTC. We choose 11 tree estimators with the same features in (\ref{feature}). 
+\item \textbf{Gaussian Mixture with Voting(GM-vote): } This algorithm is based on GM-DTC. To increase diversity, we choose 9 different tree estimators with the same features in (\ref{feature}), but with different weights(see Section \ref{weightdtc}), which are
+\begin{eqt}
+100:1,\ 50:1,\ 20:1,\ 10:1,\ 1:1,\ 1:10,\ 1:20,\ 1:50,\ 1:100.
+\end{eqt}
+\item \textbf{Gaussian Mixture with XGBoost(GM-xgb): } This algorithm is based on GM-DTC. We choose the maximal depth of each tree to be 5, regularization term $\lambda$ to be 0.5, and $\gamma$ to be 0.
+
+\end{itemize}
 
 \subsection{Comparison between Different Methods}
 \par We have implemented several previous described algorithms together with algorithms proposed by ourselves on .
