@@ -112,9 +112,14 @@ rfc = RandomForestClassifier()
 nn = MLPClassifier(solver='lbfgs', alpha=1e-4, hidden_layer_sizes=(5, 4, 3, 3), random_state=1)
 xg = XGBClassifier(max_depth=4, reg_lambda=0.5)
 
+tree_1 = DecisionTreeClassifier(criterion='gini', max_depth=6, class_weight={0:1, 1:5})
+tree_2 = DecisionTreeClassifier(criterion='gini', max_depth=6, class_weight={0:1, 1:10})
+
 model_set = {'Logistic Regression': logistic,
 			 'Naive Bayes': gnb,
 			 'Decision Tree': tree,
+			 'Tree_1': tree_1,
+			 'Tree_2': tree_2,
 			 'Linear Discriminant Analysis': lda,
 			 'LDA with Bagging': lda_bagging,
 			 'Quadratic Discriminant Analysis': qda,
