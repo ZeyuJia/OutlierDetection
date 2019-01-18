@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  18 JAN 2019 00:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  18 JAN 2019 10:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -543,14 +543,14 @@ $[]$
 [8] (./report.bbl) [9] 
 AED: lastpage setting LastPage
 [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 536.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 536.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 540.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 540.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 536.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 536.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 540.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 540.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 3D052DC2C9F7CF38256F636E4F15C600;2729.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 536.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 540.
  )
 (\end occurred inside a group at level 1)
 
@@ -559,7 +559,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 536.
 Here is how much of TeX's memory you used:
  8465 strings out of 492995
  122873 string characters out of 6132703
- 244930 words of memory out of 5000000
+ 246930 words of memory out of 5000000
  11775 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -581,7 +581,7 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (10 pages, 213221 bytes).
+Output written on report.pdf (10 pages, 213922 bytes).
 PDF statistics:
  381 PDF objects out of 1000 (max. 8388607)
  349 compressed objects within 4 object streams
