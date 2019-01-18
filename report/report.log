@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  17 JAN 2019 18:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  18 JAN 2019 00:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -522,46 +522,46 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
  [2] [3] [4] [5]
 [6]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 376.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 381.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.25002> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 376.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 381.
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--384
+Underfull \hbox (badness 10000) in paragraph at lines 373--389
 
  []
 
 
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 368--384
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 373--389
 []$[]$ 
  []
 
 [7]
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 420--432
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 425--437
 $[]$ 
  []
 
-(./report.bbl [8]) [9] 
+[8] (./report.bbl) [9] 
 AED: lastpage setting LastPage
 [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 469.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 469.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 536.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 536.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 469.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 469.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 536.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 536.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: E2C129753A3021C0D80C04EB42DCC1B3;2410.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 469.
+(rerunfilecheck)             Checksum: 3D052DC2C9F7CF38256F636E4F15C600;2729.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 536.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 8448 strings out of 492995
- 122656 string characters out of 6132703
- 237927 words of memory out of 5000000
- 11764 multiletter control sequences out of 15000+600000
- 33034 words of font info for 71 fonts, out of 8000000 for 9000
+ 8465 strings out of 492995
+ 122873 string characters out of 6132703
+ 244930 words of memory out of 5000000
+ 11775 multiletter control sequences out of 15000+600000
+ 34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  31i,17n,43p,580b,2736s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc
@@ -581,10 +581,10 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (10 pages, 207853 bytes).
+Output written on report.pdf (10 pages, 213221 bytes).
 PDF statistics:
- 362 PDF objects out of 1000 (max. 8388607)
- 330 compressed objects within 4 object streams
- 119 named destinations out of 1000 (max. 500000)
- 257 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 381 PDF objects out of 1000 (max. 8388607)
+ 349 compressed objects within 4 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 289 words of extra memory for PDF output out of 10000 (max. 10000000)
 

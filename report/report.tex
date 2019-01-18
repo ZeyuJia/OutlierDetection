@@ -236,6 +236,11 @@ Then it is easy to calculate
 \begin{equation}
 	g_{i} = 2(\hat{y}^{(t-1)} - y_{i}), \quad h_{i} = 2.
 \end{equation}
+\par Furthermore, the regularization term $\Omega(f)$ is often chosen to be
+\begin{equation}
+	\Omega(f) = \gamma T + \frac{\lambda}{2}\sum_{j=1}^{T}\omega_{j}^{2},
+\end{equation}
+where $T$ is the number of leaves in the tree $f$, and $\omega_{j}$ is the corresponding score with respect to node $j$.
 \par In order to find the most proper tree model $f_{t}$, we only need to find the optimizer of \eqref{xgboost}.
 
 \subsection{Random Forest / Bagging / Voting Methods}
@@ -433,6 +438,68 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 
 
 \section{Numerical Experiment}
+\par In this section, we will discuss the implementation of previously described algorithms, and make comparison between them from numerical experiments.
+
+\subsection{Supervised Learning Methods}
+\par For supervised learning methods, we have implemented several methods. The setting of these methods are described below
+\begin{itemize}
+	\item\textbf{Decision Tree: } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the maximum depth of the tree to be 6.
+	\item\textbf{LDA with bagging: }We choose the number of bagging LDA estimators to be 5.
+	\item\textbf{QDA with bagging: }We choose the number of bagging QDA estimators to be 11.
+	\item\textbf{Random Forest: } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the number of estimators to be .
+	\item\textbf{XGBoost: }We choose the maximum depth of each tree to be 4, regularization term $\lambda$ to be 0.5 and $\gamma$ to be 0.
+	\item\textbf{Neural Network: }We choose the structure of the neural network to be a 4-layer fully connected neural network, with 5, 4, 3, 3 neurons in each layers respectively.
+\end{itemize}
+
+\subsection{Outlier Detection Methods}
+
+\subsection{Gaussian Mixture Models Methods}
+
+\subsection{Comparison between Different Methods}
+\par We have implemented several previous described algorithms together with algorithms proposed by ourselves on .
+
+\begin{table}
+	\centering
+	\setlength{\belowcaptionskip}{10pt}
+	\caption{}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	Methods & \multicolumn{3}{|c|}{Train} & \multicolumn{3}{|c|}{Valid} & \multicolumn{3}{|c|}{Test} & \multicolumn{2}{|c|}{Time}\\
+	\hline
+	& R & P & F & R & P & F & R & P & F & T & P\\
+	\hline
+Logistic & 58.6 & 85.2 & 64.9 & 61.2 & 88.2 & 67.6 & 59.6 & 86.8 & 66.0 & 8.88 & 0.01\\
+\hline
+NB & 82.4 & 5.9 & 16.5 & 84.7 & 6.1 & 17.1 & 82.8 & 5.8 & 16.2 & 0.09 & 0.02\\
+\hline
+Tree & 83.4 & 98.4 & 87.5 & 81.6 & 90.9 & 84.3 & 79.8 & 91.9 & 83.2 & 4.02 & 0.01\\
+\hline
+LDA & 74.2 & 85.5 & 77.4 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 0.70 & 0.01\\
+\hline
+LDA-Bag & 74.9 & 85.7 & 77.9 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 4.20 & 0.02\\
+\hline
+QDA & 87.5 & 5.4 & 15.4 & 90.8 & 5.6 & 16.1 & 84.8 & 5.3 & 15.1 & 0.34 & 0.03\\
+\hline
+QDA-Bag & 87.1 & 5.7 & 16.2 & 90.8 & 6.0 & 17.1 & 84.8 & 5.7 & 16.0 & 5.30 & 0.27\\
+\hline
+RF & 96.3 & 100.0 & 97.4 & 81.6 & 93.0 & 84.8 & 74.7 & 93.7 & 79.7 & 11.78 & 0.06\\
+\hline
+NN & 78.3 & 84.9 & 80.2 & 82.7 & 84.4 & 83.2 & 78.8 & 82.1 & 79.8 & 7.54 & 0.01\\
+\hline
+XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & 94.2 & 85.9 & 80.8 & 94.1 & 84.5 & 37.29 & 0.13\\
+\hline
+GMDA & 79.3 & 81.0 & 79.8 & 83.7 & 82.8 & 83.4 & 79.8 & 83.2 & 80.8 & 53.76 & 0.13 \\
+\hline
+GM-dtc & 85.1 & 92.3 & 87.2 & 83.7 & 87.2 & 84.7 & 80.8 & 90.9 & 83.7 & 4.27 & 0.24 \\
+\hline
+GM-bagging & 85.4 & 94.4 & 88.0 & 81.6 & 87.9 & 83.5 & 75.8 & 90.4 & 79.7 & 24.36 & 0.30 \\
+\hline
+GM-voting & 85.8 & 94.4 & 88.2 & 82.7 & 89.0 & 84.5 & 77.8 & 93.9 & 82.1 & 23.12 & 0.29 \\
+\hline
+GMDA-n & 77.6 & 82.1 & 78.9 & 84.7 & 83.0 & 84.2 & 79.8 & 84.9 & 81.3 & 7.33 & 0.07 \\
+\hline
+	\end{tabular}
+\end{table}
 
 \section{Conclusion}
 

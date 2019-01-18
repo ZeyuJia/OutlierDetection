@@ -16,7 +16,7 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score, \
     confusion_matrix, roc_curve, roc_auc_score
 
 
-data = pd.read_csv('Statistical_Learning/data/creditcard.csv')
+data = pd.read_csv('../data/creditcard.csv')
 x = np.array(data.loc[1:len(data)-1, 'Time'])
 y = np.array(data.loc[0:len(data)-2, 'Time'])
 data.loc[1:, 'Time'] = x-y
@@ -50,7 +50,7 @@ def result(sets, predict):
     precision = precision_score(y_true=sets['Class'].values, y_pred=predict)
     fbeta = fbeta_score(y_true=sets['Class'].values, y_pred=predict, beta=1.5)
 
-    print('& {0:.3f} & {1:.3f} & {2:.3f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
+    print('& {0:.1f} & {1:.1f} & {2:.1f} '.format(100 * recall, 100 * precision, 100 * fbeta), end='')
 
 class GMM():
 
@@ -156,7 +156,7 @@ gmm.Test(valid)
 test_start = time()
 gmm.Test(test)
 test_end = time()
-print('& {0:.3f} & {1:.3f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
+print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
 
 
 print('GM-dtc ', end='')
@@ -164,7 +164,7 @@ train_start = time()
 dtc = DecisionTreeClassifier(criterion='entropy', max_depth=5).fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(dtc)
-print('& {0:.3f} & {1:.3f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 bgc = BaggingClassifier(base_estimator=DecisionTreeClassifier(criterion='entropy', max_depth=5),
@@ -174,7 +174,7 @@ train_start = time()
 bgc.fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(bgc)
-print('& {0:.3f} & {1:.3f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 estimators = [
@@ -195,7 +195,7 @@ train_start = time()
 bgc.fit(feature(gmm, train).T, train['Class'])
 train_end = time()
 test_time = result_all(bgc)
-print('& {0:.3f} & {1:.3f} \\\\\\hline'.format(train_end - train_start, test_time))
+print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_time))
 
 
 x = valid
@@ -225,4 +225,4 @@ test_start = time()
 predict = (gmm.normal.score_samples(test.drop(columns=['Class'])) <= p).astype(np.int32)
 result(test, predict)
 test_end = time()
-print('& {0:.3f} & {1:.3f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))
+print('& {0:.1f} & {1:.1f} \\\\\\hline'.format(train_end - train_start, test_end - test_start))

@@ -28,5 +28,9 @@
 \BOOKMARK [3][-]{subsubsection.4.3.2}{Relation with LDA and QDA}{subsection.4.3}% 28
 \BOOKMARK [3][-]{subsubsection.4.3.3}{Relation with Decision Tree}{subsection.4.3}% 29
 \BOOKMARK [1][-]{section.5}{Numerical Experiment}{}% 30
-\BOOKMARK [1][-]{section.6}{Conclusion}{}% 31
-\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 32
+\BOOKMARK [2][-]{subsection.5.1}{Supervised Learning Methods}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.2}{Outlier Detection Methods}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.3}{Gaussian Mixture Models Methods}{section.5}% 33
+\BOOKMARK [2][-]{subsection.5.4}{Comparison between Different Methods}{section.5}% 34
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 35
+\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 36
