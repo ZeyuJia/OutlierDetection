@@ -135,7 +135,20 @@ where parameters $\mu_{y}$ and $\sigma_{y}$ are determined by maximum likelihood
 \subsubsection{Weighted Decision Tree Classifier}
 \label{weightdtc}
 \par Weighted decision tree is a useful model in tackling cases where number of instances in each class varies a lot.
-\par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we multiply instances in each class by a weight. After doing that, we aim to let instance weight in each class multiplied by the number of instances in that class not vary a lot. (This has the same effect as duplicating instances in minor classes several times.) Then we will train a decision tree with these instances and weights.
+\par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we assign a weight to each class. And we aim to let the number of instances in each class multiplied by the weight in that class does not vary a lot. Then we will train a decision tree with weights on these instances. Specifically speaking, suppose the training set is 
+\begin{equation}
+	\{(x_{1}, y_{1}), (x_{2}, y_{2}), \cdots, (x_{n}, y_{n})\},
+\end{equation}
+where $y_{i}\in Y = \{1, 2, \cdots, N\}$. If we add weight $\alpha_{i}$ to class $i$ $(1\le i\le N)$, then training the weighted decision tree with such weights is equivalent to training a decision tree with samples:
+\begin{equation}
+	\begin{matrix}
+		(x_{1}, y_{1})\times \alpha_{y_{1}},\\
+		(x_{2}, y_{2})\times \alpha_{y_{2}},\\
+		\vdots\\
+		(x_{n}, y_{n})\times \alpha_{y_{n}},
+	\end{matrix}
+\end{equation}
+where we duplicate sample $(x_{i}, y_{i})$ by $\alpha_{y_{i}}$ times.
 \par Adopting this technique, the inclination to classify a new instance to major classes reduces a lot.
 
 \subsection{Support Vector Classifier}
@@ -275,6 +288,12 @@ Then it is easy to calculate
 \end{equation}
 where $T$ is the number of leaves in the tree $f$, and $\omega_{j}$ is the corresponding score with respect to node $j$.
 \par In order to find the most proper tree model $f_{t}$, we only need to find the optimizer of \eqref{xgboost}.
+\par In comparison with gradient boosting methods, the XGBoost methods use order-2 Taylor expansion, while gradient boosting use order-1 Taylor expansion. (only consider the gradient of the loss functiion) Specifically, in gradient boosting methods, we consider the following estimation of the loss function:
+\begin{equation}
+	\mathcal{L}^{(t)}\approx\sum_{i=1}^{n}\left[l(y_{i}, \hat{y}_{i}^{(t-1)}) + g_{i}f_{t}(x_{i})\right] + \Omega(f_{t}) + const
+\end{equation}
+Hence if we let $f_{t}(x) = \alpha_{t}f_{t}^{*}(x)$, then we only need to fit the estimator $f_{t}^{*}$ to the negative gradient direction, and in such ways we can obtain the largest descent if we increase the parameter $\alpha_{t}$ from zero.
+\par Therefore, due to the difficulty in obtaining the second order derivative, XGBoost is usually slower than gradient boosting. But the second order derivative can make XGBoost more accurate than gradient boosting, and hence in less iterations, XGBoost methods can achieve similar results to gradient boosting methods.
 
 \subsection{Other Ensemble Methods}
 \par Methods discussed in this subsection are similar in that they all adopt the idea of bagging or voting to make the classifier more powerful. We will discussed voting method, bagging method and the random forest method here in this subsection.
@@ -555,21 +574,21 @@ NB & 82.4 & 5.9 & 16.5 & 84.7 & 6.1 & 17.1 & 82.8 & 5.8 & 16.2 & 0.09 & 0.02\\
 \hline
 DTC & 83.4 & 98.4 & 87.5 & 81.6 & 90.9 & 84.3 & 79.8 & 91.9 & 83.2 & 4.02 & 0.01\\
 \hline
-DTC 1:5 & 84.7 & 98.0 & 88.4 & 79.6 & 91.8 & 83.0 & 76.8 & 92.7 & 81.1 & 4.19 & 0.01\\
+DTC 1:5 & 84.6 & 97.8 & 88.3 & 80.4 & 91.3 & 83.5 & 78.2 & 92.2 & 82.0 & 4.19 & 0.01\\
 \hline
-DTC 1:10 & 85.8 & 94.1 & 88.2 & 83.7 & 87.2 & 84.7 & 79.8 & 86.8 & 81.8 & 4.16 & 0.01\\
+DTC 1:10 & 85.8 & 94.1 & 88.2 & 83.4 & 86.0 & 84.2 & 79.8 & 86.2 & 81.7 & 4.16 & 0.01\\
 \hline
 LDA & 74.2 & 85.5 & 77.4 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 0.70 & 0.01\\
 \hline
-LDA-Bag & 74.9 & 85.7 & 77.9 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 4.20 & 0.02\\
+LDA-Bag & 73.8 & 85.4 & 77.1 & 81.8 & 87.9 & 83.6 & 77.1 & 87.3 & 80.0 & 4.20 & 0.02\\
 \hline
-QDA & 87.5 & 5.4 & 15.4 & \textbf{90.8} & 5.6 & 16.1 & \textbf{84.8} & 5.3 & 15.1 & 0.34 & 0.03\\
+QDA & 87.5 & 5.4 & 15.4 & \textbf{90.8} & 5.6 & 16.1 & 84.8 & 5.3 & 15.1 & 0.34 & 0.03\\
 \hline
-QDA-Bag & 87.1 & 5.7 & 16.2 & \textbf{90.8} & 6.0 & 17.1 & \textbf{84.8} & 5.7 & 16.0 & 5.30 & 0.27\\
+QDA-Bag & 87.4 & 6.0 & 16.9 & 90.7 & 6.3 & 17.6 & \textbf{84.9} & 5.9 & 16.6 & 5.30 & 0.27\\
 \hline
-RF & \textbf{96.3} & \textbf{100.0} & \textbf{97.4} & 81.6 & 93.0 & 84.8 & 74.7 & 93.7 & 79.7 & 11.78 & 0.06\\
+RF & \textbf{94.4} & \textbf{99.6} & \textbf{95.9} & 80.0 & 92.8 & 83.5 & 77.1 & \textbf{94.1} & 81.6 & 11.78 & 0.06\\
 \hline
-NN & 78.3 & 84.9 & 80.2 & 82.7 & 84.4 & 83.2 & 78.8 & 82.1 & 79.8 & 7.54 & 0.01\\
+NN & 78.0 & 86.5 & 80.4 & 82.7 & 88.0 & 84.2 & 80.8 & 85.1 & 82.1 & 7.54 & 0.01\\
 \hline
 XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & \textbf{94.2} & 85.9 & 80.8 & \textbf{94.1} & \textbf{84.5} & 37.29 & 0.13\\
 \tabucline[1.5pt]{-}
