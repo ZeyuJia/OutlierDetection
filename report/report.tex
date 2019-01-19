@@ -489,7 +489,7 @@ The dataset contains only numerical input variables which are the result of a PC
 
 \par We draw the histogram of each feature corresponding to the response variable. From the charts, we have some confidence that the assumption of our algorithm holds. The distribution can be well approximated by Gaussian Mixture. Of course, rigorous demonstration is left to numerical experiments in the following subsections.
 
-\par As for data splitting, we set the proportion among training, validation, and test set as 6:2:2. If the training set is small, say, less than half of the whole dataset, then training or modelling is difficult, especially for anomaly data. If the validation set or test set is too small, then our evaluation metric will be vulnerable to a tiny change in anomaly prediction. Our choice is a tradeoff.
+\par As for data splitting, we set the proportion among training, validation, and test set as 6:2:2. If the training set is small, say, less than half of the whole dataset, then training or modelling is difficult, especially for anomaly data. If the validation set or test set is too small, then our evaluation metric will be vulnerable to a tiny change in anomaly prediction. Our choice is a tradeoff. It's worth noting that we keep the ratio between normal data and anomalies the same in all the 3 sets. This is essential for us to obtain a fair result.
 
 \subsection{Implementation Details}
 \par In this section, we will discuss the implementation of previously described algorithms, and make comparison among them from experiments. These numerical experiments are carried out on a computer with 2 Intel Core i7-6500U CPUs and 16GiB RAM.
@@ -595,7 +595,17 @@ ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.
 \end{table}
 
 \section{Conclusion}
+\par Our work for Outlier Classification ends up here, but new ideas for improvement and continuous passion for research will never fade. We now give a brief summary for what we have done and give some outlooks. 
 
+\par The Outlier Classification mainly consists of two challenges. The first one is that highly unbalanced dataset may lead to deterioration of standard supervised learning technique. The second one is that the small number of outliers(anomalies) may impose annoying influence on our evaluation performance. We propose several techniques to deal with this problem. On the side of evaluation, we restrict ourselves on \textit{recall}, \textit{precision} and a weighted \textit{F-score} as our evaluation metric. To deal with the potential unstable results, we propose to run several times of our algorithms and obtain the average.
+
+\par On the side of algorithms, based on Bayesian decision theory, we propose GMDA to utilize the advantage of clustering methods and to capture the different distribution between normal and anomaly data. From the view of Naive Bayes/LDA/QDA, we extend the modelling of distribution to Gaussian Mixture, and regard some parameters to be tuned automatically as thresholds by the algorithm. From the view of Decision Tree Classifier and other ensemble methods, the algorithm deal with raw data to obtain highly nonlinear features to enhance performance. The algorithm can also be combined with several other supervised learning techniques.
+
+\par As to numerical experiments, we conduct a case study to compare our methods with standard ones. Surprisingly, tree-based methods perform relatively well on this setting, which indicates that the unbalanced dataset does not affect peformance too much when we use trees. Our algorithms perform quite well on this dataset. Of course, the success of our algorithms may, to some extent, depend on the organized shape of the dataset. It's worth noting that traditional outlier detection methods perform badly in our setting. This may be caused by lack of information of data labels.
+
+\par Now we provide some outlooks. For supervised learning methods, we want may further investigate some combined methods such as kernel smoothing. Due to the time limit, we do not implement them. Furthermore, deep-learning based methods are prospective. After all, from our experiments, a simple neural network performs comparable to the best performed algorithms. For our proposed algorithms, apart from directly geenrating features and embed them into trees, we could also split trees first and then apply Gaussian Mixture, though this is left to future work. We also want to mention that for outlier detection methods, we have potential for trying with other algorithms in the literature, since the three algorithms we implemented are the most standard and the simplest.
+
+\par As we have mentioned in Introduction, Outlier Classification is very common in many business setting. However, there is still room for improvement even with numerous proposed methods. Of course, we hope that we can find more efficient methods, both in time and space. This will be left for future research.
 
 \bibliography{reference}
 \bibliographystyle{plain}
