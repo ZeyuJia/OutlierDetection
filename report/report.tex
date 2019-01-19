@@ -57,15 +57,28 @@ School of Mathematical Science, Peking University
 \par However, unlike labelling of pictures or videos, it is not that difficult to label data points in anomaly detection setting. For example, in financial fraud detection, it's easy to obtain whether a deal is fraud or not after it is done. We observe that labeled data for outlier detection is always available for training and testing numerous algorithms. Why do we have to apply unsupervised or semi-supervised learning methods given that the labels are complete? Thus, in this paper, we will mainly focus on ``Outlier Classification", where labels are all presented.
 \indent Outlier Classification gives rise to other challenging problems. 
 \begin{enumerate}
-\item The dataset is highly imbalanced. The ratio between normal data and anomaly ones may be very large, sometimes exceeding 500:1. This may make traditional classification techniques ineffective.
+\item The dataset is highly imbalanced. The ratio between normal data and anomaly ones may be very large, sometimes exceeding 500:1. Such imbalanced proportion between each class will let traditional classifiers tend to classify instances to normal class much easily, and will certainly bring ineffective outcome since classifying anomaly instances into normal will not affect the accuracy very much. Since what we want is to identify outliers accurately, this phenomenon will seriously damage the effect of traditional classifiers.
 \item The number of anomaly data is small, even if the size of the whole data set is large. The problem become especially serious when we split the dataset into several parts, because it imposes high volatility on evaluation with regard to anomaly data.
 \end{enumerate} 
 \par To deal with the problems above, we need to clarify our evaluation metric before going further. We will use \textit{recall}(R) and \textit{precision}(P), which is defined as
 \begin{eqt}
 \textit{recall}\text{(R)} & = \frac{\text{TP}}{\text{TP}+\text{FN}},\\ 
-\textit{precision}\text{(P)} & = \frac{\text{TP}}{\text{TP}+\text{FP}}.
+\textit{precision}\text{(P)} & = \frac{\text{TP}}{\text{TP}+\text{FP}},
 \end{eqt}
-To integrate the two metric, we also define our \textit{F-score}. In practice, it is always more important to detect all true anomalies as much as possible, which means that we should put more weight on \textit{recall} than \textit{precision}. Our \textit{F-score}(F) is defined as
+where TP, FP, FN are defined as the number of instances in the following table
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+			& True Anomaly & True Normal\\
+		\hline
+			Predicted Anomaly & TP & FP\\
+		\hline
+			Predicted Normal & FN & TN\\
+		\hline
+	\end{tabular}
+\end{table}
+\par To integrate the two metric, we also define our \textit{F-score}. In practice, it is always more important to detect all true anomalies as much as possible, which means that we should put more weight on \textit{recall} than \textit{precision}. Our \textit{F-score}(F) is defined as
 \begin{eqt}
 \textit{F-score}\text{(F)} = \frac{2.5\times \text R\times \text P}{1.5\times \text P + \text R}.
 \end{eqt}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 12:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 13:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -514,60 +514,57 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 
 ]
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 77.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 86.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 99.
+ [2]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 120.
- [2] [3] [4] [5]
-[6]
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 133.
+ [3] [4] [5]
+[6] [7]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 400.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 413.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.25002> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 400.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 413.
 
-Underfull \hbox (badness 10000) in paragraph at lines 392--409
+Underfull \hbox (badness 10000) in paragraph at lines 405--422
 
  []
 
 
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 392--409
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 405--422
 []$[]$ 
  []
 
-[7] [8]
-Overfull \hbox (50.00006pt too wide) in paragraph at lines 450--462
+[8]
+Overfull \hbox (50.00006pt too wide) in paragraph at lines 463--475
 $[]$ 
  []
 
-[9]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-(./report.bbl [10]) [11] 
+[9] [10] (./report.bbl [11]) [12] 
 AED: lastpage setting LastPage
-[12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 600.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 600.
+[13]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 613.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 613.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 600.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 600.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 613.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 613.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D8ABFE08E0C04CB646BB96C34A334324;2830.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 600.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 613.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 8487 strings out of 492995
- 123151 string characters out of 6132703
- 255786 words of memory out of 5000000
+ 8488 strings out of 492995
+ 123158 string characters out of 6132703
+ 250786 words of memory out of 5000000
  11784 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,17n,43p,863b,2724s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,17n,43p,863b,2725s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc
 }</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.
 pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
@@ -585,10 +582,10 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (12 pages, 225088 bytes).
+Output written on report.pdf (13 pages, 226092 bytes).
 PDF statistics:
- 414 PDF objects out of 1000 (max. 8388607)
- 380 compressed objects within 4 object streams
- 138 named destinations out of 1000 (max. 500000)
+ 420 PDF objects out of 1000 (max. 8388607)
+ 385 compressed objects within 4 object streams
+ 139 named destinations out of 1000 (max. 500000)
  297 words of extra memory for PDF output out of 10000 (max. 10000000)
 
