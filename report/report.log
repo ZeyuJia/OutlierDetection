@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  19 JAN 2019 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  19 JAN 2019 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -547,16 +547,20 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 628.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 628.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 489328D6E2A35AC6669AEF72643CBD37;3148.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 628.
  ) 
 Here is how much of TeX's memory you used:
- 8472 strings out of 492982
- 122315 string characters out of 6136225
- 246040 words of memory out of 5000000
+ 8471 strings out of 492982
+ 122305 string characters out of 6136225
+ 246023 words of memory out of 5000000
  11773 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,17n,43p,865b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,17n,43p,865b,440s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2017/texm
 f-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><c:/texlive/2017/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2017/texmf-dist/fonts/ty
@@ -572,10 +576,10 @@ fonts/symbols/msam10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msbm10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.p
 fb><c:/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/201
 7/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (13 pages, 229997 bytes).
+Output written on report.pdf (13 pages, 229657 bytes).
 PDF statistics:
- 437 PDF objects out of 1000 (max. 8388607)
- 401 compressed objects within 5 object streams
- 143 named destinations out of 1000 (max. 500000)
+ 435 PDF objects out of 1000 (max. 8388607)
+ 400 compressed objects within 4 object streams
+ 142 named destinations out of 1000 (max. 500000)
  329 words of extra memory for PDF output out of 10000 (max. 10000000)
 

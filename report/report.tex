@@ -319,7 +319,7 @@ s(X, n) = 2^{-\frac{E[h(X)]}{c(n)}},
 where $h(X)$ is the path length of observation $X$, $E[h(X)]$ is the average of $h(X)$ through the forest of trees. $c(n)$ is the average path length of unsuccessful search in a Binary Search Tree and $n$ is the number of its external nodes. If we ignore the detailed derivation of $c(n)$, we could regard it as a normalization term. More on the anomaly score and its components can be found in \cite{isolationforest}.
 \par
 In fact, random partitioning produces shorter paths for anomalies because anomalies have high probability of being close to the extreme values of a feature. Hence, if for a particular sample, the forest of random trees collectively produce shorter path lengths, it is highly likely to be an anomaly.
-The tuning parameters are the number of trees and the proportion of outliers.
+\par The tuning parameters in this algorithm are the number of trees and the proportion of outliers.
 
 \subsection{Local Outlier Factor}
 \par
@@ -340,8 +340,8 @@ The $k$-local outlier factor of $X$ is defined as
 \textit{lof}_k(X) = \frac{\sum_{Y\in N_k(X)}\textit{lrd}_k(Y)}{|N_k(X)|\textit{lrd}_k(X)}.
 \end{eqt}
 
-\paragraph{}
-If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. Surely, the number of neighbors $k$ is a tuning parameter, and the proportion of outliers is also given by decision makers as a parameter. For more detailed description of the algorithm, readers could refer to \cite{lof}.
+\par If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. 
+\par The tuning parameters in this algorithm are the number of neighbors $k$ and the proportion of outliers. For more detailed description of the algorithm, readers could refer to \cite{lof}.
 
 \section{Our Idea: Clustering-Based Modelling Methods}
 \par
@@ -489,7 +489,7 @@ The dataset contains only numerical input variables which are the result of a PC
 
 \par We draw the histogram of each feature corresponding to the response variable. From the charts, we have some confidence that the assumption of our algorithm holds. The distribution can be well approximated by Gaussian Mixture. Of course, rigorous demonstration is left to numerical experiments in the following subsections.
 
-\par As for data splitting, we set the ratio among training, validation, and test set as 6:2:2. If the training set is small, say, less than half of the dataset, then training or modelling is difficult, especially for anomaly data. If the validation set or test set is too small, then our evaluation metric will be vulnerable to a tiny change in anomaly prediction. Our choice is a tradeoff.
+\par As for data splitting, we set the proportion among training, validation, and test set as 6:2:2. If the training set is small, say, less than half of the whole dataset, then training or modelling is difficult, especially for anomaly data. If the validation set or test set is too small, then our evaluation metric will be vulnerable to a tiny change in anomaly prediction. Our choice is a tradeoff.
 
 \subsection{Implementation Details}
 \par In this section, we will discuss the implementation of previously described algorithms, and make comparison among them from experiments. These numerical experiments are carried out on a computer with 2 Intel Core i7-6500U CPUs and 16GiB RAM.
@@ -590,7 +590,7 @@ LOF & 50.8 & 54.5 & 51.9 & 55.1 & 53.5 & 54.6 & 50.5 & 51.5 & 50.8 & 368.53 & 12
 ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.96 \\
 \hline
 	\end{tabular}
-	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in Introduction. The last two columns are about time costs on training process and prediction process. (on test set)}
+	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, the next six rows are about GMDA and related methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in Introduction. The last two columns presents time costs on training process and prediction process (on test set).}
 	\label{comparison}
 \end{table}
 
