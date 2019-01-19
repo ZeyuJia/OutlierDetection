@@ -87,14 +87,14 @@ where TP, FP, FN are defined as the number of instances in the following table
 \section{Supervised Learning Models}
 \par In this section, we will discuss several commonly used supervised learning methods, and their application on outlier classification tasks. These supervised learning methods includes
 \begin{itemize}
-	\item Logistic regression classifier,
-	\item Gaussian Naive bayes classifier,
-	\item Decision tree classifier,
-	\item Support vector classifier,
-	\item Discriminant analysis classifier,
-	\item K-nearest neighbor classifier.
+	\item Logistic Regression Classifier,
+	\item Gaussian Naive Bayes Classifier,
+	\item Decision Tree Classifier,
+	\item Support Vector Classifier,
+	\item Discriminant Analysis Classifier,
+	\item K-Nearest Neighbor Classifier.
 \end{itemize}
-\par Furthermore, we will also introduce two useful techniques used in classification problem: boosting methods, and random forest/bagging/voting methods. These methods and techniques refer to \cite{scikit-learn}\cite{friedman2001elements}, and will be discussed in the following subsections respectively.
+\par Furthermore, we will also introduce two useful techniques used in classification problem: boosting methods(Adaboost/XGBoost) and other ensemble methods(random forest/bagging/voting). These methods and techniques refer to \cite{scikit-learn}\cite{friedman2001elements}, and will be discussed in the following subsections respectively.
 
 \subsection{Logistic Regression Classifier}
 \par The logistic regression classifier is one of the most simple methods used in 2-class classification problem. Suppose two class are denoted by $0$ and $1$. Then we will find an proper $W$ and $b$ such that
@@ -127,10 +127,10 @@ where parameters $\mu_{y}$ and $\sigma_{y}$ are determined by maximum likelihood
 \par The underlying assumption of this method is that data in each class satisfies Gaussian distribution, and each features are independent given its label.
 
 \subsection{Decision Tree Classifier}
-\par The decision tree classifier is a little bit different to other methods. The other methods all aim to find a proper linear (or nonlinear) combination of features. The decision tree, however, will execute on features sequentially. In other words, in each step of decision tree's iteration, only one feature will be taken into consideration.
-\par The training of a decision tree is often divided into two parts: splitting and pruning. In the splitting part, the decision tree will expand their leaves. That is, finding a new features (often the one with the most reduction of the loss) and then split one of the tree leaf into two new leaves. In the pruning process, some of leaves will merged into one, if merging them can decrease the value of loss plus regularization.
+\par The decision tree classifier is a little bit different to other methods. Other methods all aim to find a proper linear (or nonlinear) combination of features. The decision tree, however, will execute on features sequentially. In other words, in each step of decision tree's iteration, only one feature will be taken into consideration.
+\par The training of a decision tree is often divided into two parts: splitting and pruning. In the splitting part, the decision tree will expand their leaves. That is, finding a new feature (often the one with the most reduction of the loss) and then split one of the tree leaf into two new leaves. In the pruning process, some of leaves will merged into one, if merging them can decrease the value of loss plus regularization.
 
-\subsubsection{Weighted Decision Tree}
+\subsubsection{Weighted Decision Tree Classifier}
 \label{weightdtc}
 \par Weighted decision tree is a useful model in tackling cases where number of instances in each class varies a lot.
 \par To balance the number of instances in each class, and to let the classifier be not prone to classify new instance into the major class, we multiply instances in each class by a weight. After doing that, we aim to let instance weight in each class multiplied by the number of instances in that class not vary a lot. (This has the same effect as duplicating instances in minor classes several times.) Then we will train a decision tree with these instances and weights.
@@ -191,7 +191,7 @@ to determine the estimated class of instance $x$, according to
 \end{equation}
 
 \subsubsection{Quadratic Discriminant Analysis Classifier}
-\par In LDA's setting, we assume the covariance matrix in each class to be the same one, but sometimes this assumption cannot hold, and we need to estimate the covariance matrix for each class. This estimation is called quadratic discriminant analysis.
+\par In LDA's setting, we assume the covariance matrix in each class to be the same, but sometimes this assumption do not always hold, and we need to estimate the covariance matrix for each class. This estimation is called quadratic discriminant analysis.
 \par The estimating method for the covariance in class $k$ is
 \begin{equation}
 	\hat{\Sigma}_{k} = \frac{1}{N_{k} - 1}\sum_{y_{i} = k}(x_{i} - \hat{\mu}_{k})(x_{i} - \hat{\mu}_{k})^{T},
@@ -208,7 +208,7 @@ to determine the estimated class of instance $x$, according to
 \par Note that the QDA classifier is similar to the naive Bayes classifier, only lack of the assumption that each feature is independent given the class label. Hence if we assume the covariance matrices $\hat{\Sigma}_{k}$ to be diagonal, then we will obtain the same results to naive Bayes classifier.
 
 \subsection{K-Nearest Neighbor Classifier}
-\par The K-nearest-neighbor classifier (KNN classifier) is the simplest kernel smoothing classifier. Its idea is to label a new instance according to the majority among its nearest $k$ instances label.
+\par The K-Nearest Neighbor Classifier (KNN Classifier) is the simplest kernel smoothing classifier. Its idea is to label a new instance according to the majority among the labels of its nearest $k$ instances.
 \par Specifically, suppose the training set is denoted by $\{(x_{i}, y_{i})\}_{1\le i\le n}$ ($y_{i}\in\{0, 1\}$), and we have a new instance $x$. If the $k$ nearest neighbors to $x$ among $x_{i}$ are $x_{1}\cdots, x_{k}$, then we will label it according to
 \begin{equation}
 	\hat{y} = \begin{cases}
@@ -237,8 +237,8 @@ and then we let
 	f_{m}(x) = f_{m-1}(x) + \beta_{m}G_{m}(x).
 \end{equation}
 
-\subsubsection{XGboost}
-\par This part refers to the paper \cite{chen1603xgboost}. XGboost is the abbreviation of ``extreme gradient boosting'' method. This is also a method using the boosting tree technique. But instead of using gradient boosting, the main idea of XGboost is to use both the first and the second order derivative to approximate the loss function.
+\subsubsection{XGBoost}
+\par This part refers to the paper \cite{chen1603xgboost}. XGBoost is the abbreviation of ``extreme gradient boosting'' method. This is also a method using the boosting tree technique. But instead of using gradient boosting, the main idea of XGBoost is to use both the first and the second order derivative to approximate the loss function.
 \par Specifically speaking, we first define the loss function of the model:
 \begin{equation}
 	\mathcal{L} = \sum_{i=1}^{n}l(y_{i}, \hat{y}_{i}) + \sum_{k=1}^{K}\Omega(f_{k}),
@@ -274,90 +274,90 @@ Then it is easy to calculate
 where $T$ is the number of leaves in the tree $f$, and $\omega_{j}$ is the corresponding score with respect to node $j$.
 \par In order to find the most proper tree model $f_{t}$, we only need to find the optimizer of \eqref{xgboost}.
 
-\subsection{Random Forest / Bagging / Voting Methods}
+\subsection{Other Ensemble Methods}
 \par Methods discussed in this subsection are similar in that they all adopt the idea of bagging or voting to make the classifier more powerful. We will discussed voting method, bagging method and the random forest method here in this subsection.
 
-\subsubsection{Voting Method}
-\par The voting method is a method balancing different classifiers in order to achieve a better classifier.
+\subsubsection{Voting}
+\par Voting is a method balancing different classifiers in order to achieve a better classifier.
 \par Suppose their are $n$ classifier $f_{1}, \cdots, f_{m}$. Then we assign weights $w_{1}, \cdots, w_{m}$ to each classifier. Then the idea of voting is to choose the label which is most likely been classified. That is, we choose 
 \begin{equation}
 	\hat{y} = \max_{y}\#\{f_{m}(x) = y, 1\le i\le m\}.
 \end{equation}
 
-\subsubsection{Bagging Method}
-\par The bagging method adopts the idea of voting method, uses one model to train several classifiers by bootstrap, and then use these classifiers to vote to get the prediction. This type of methods can reduce the variance, and is easy for parallel computing.
+\subsubsection{Bagging}
+\par Bagging adopts the idea of voting method, uses one model to train several classifiers by bootstrap, and then use these classifiers to vote to get the prediction. This type of methods can reduce the variance, and is easy for parallel computing.
 
-\subsubsection{Random Forest Method}
-\par The well-known random forest method is based on bagging method, but random forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data applied bootstrap technique, but also the features are selected randomly.
+\subsubsection{Random Forest}
+\par Based on Bagging, Random Forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data apply bootstrap technique, but also the features are selected randomly.
 
 \section{Outlier/Novelty Detection Methods}
 
 \par
-In this section, we will introduce some standard outlier detection methods. All these methods assume loss of labels and try to empirically figure out whether a collected data point is an ``outlier"(Outlier Detection) or an new data point is a ``novelty"(Novelty Detection). 
+In this section, we will introduce some standard outlier detection methods. As we have mentioned in Introduction, all these methods assume loss of labels and try to empirically figure out whether a collected data point is an ``outlier" or a new data point is a ``novelty". 
 
-\subsection{Robust Covariance Estimator}
+\subsection{Robust Covariance Estimation}
 \par
-The estimator is also called Minimum Covariance Determinant (MCD) estimator. It is, to some extent, similar to LDA. However, since it assumes lack of label, the algorithm only fits one Gaussian distribution to model the normal data. To fit the data robustly, it tries to find 
+The estimator obtained from the algorithm is also called Minimum Covariance Determinant (MCD) estimator. It is, to some extent, similar to LDA. The algorithm fits only one Gaussian distribution to model the normal data in a robust way. More rigorously, it tries to find 
 \begin{eqt}
 \frac{n_{\textit{samples}}+n_{\textit{features}}+1}{2}
 \end{eqt}
-observations whose empirical covariance has the smallest determinant and yields a ``pure" subset of observations from which we can estimate so-called Mahalanobis distance for any data point $x$, i.e., 
+observations whose empirical covariance has the smallest determinant and yields a ``pure" subset of observations. We then could estimate so-called Mahalanobis distance between any data point $x$ and the center of fitted Gaussian distribution, i.e., 
 \begin{eqt}
 \label{mahadist}
 d(x; \mu, \Sigma) = (x-\mu)'\Sigma^{-1}(x-\mu).
 \end{eqt}
 \par
-If it's value is too large, then $x$ is classified as an anomaly, else a normal data point. For more detailed description, readers could refer to \cite{robustcov}.
+If it's value is too large, then $x$ is classified as an anomaly, else a normal data point. Commonly, there is no tuning parameters. For more detailed description, readers could refer to \cite{robustcov}.
 
 
 \subsection{Isolation Forest}
 \par
-The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to isolate a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, and embedded in an anomaly score, which is regarded as a measure of normality. The anomaly score in this algorithm is defined as 
+The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to ``isolate" a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, and embedded in an anomaly score, which is regarded as a measure of normality. The anomaly score in this algorithm is defined as 
 \begin{eqt}
 s(X, n) = 2^{-\frac{E[h(X)]}{c(n)}},
 \end{eqt}
-where $h(X)$ is the path length of observation $X$, $E[h(X)]$ is the average of $h(X)$ through the forest of trees, $c(n)$ is the average path length of unsuccessful search in a Binary Search Tree and $n$ is the number of external nodes. More on the anomaly score and its components can be found in \cite{isolationforest}.
+where $h(X)$ is the path length of observation $X$, $E[h(X)]$ is the average of $h(X)$ through the forest of trees. $c(n)$ is the average path length of unsuccessful search in a Binary Search Tree and $n$ is the number of its external nodes. If we ignore the detailed derivation of $c(n)$, we could regard it as a normalization term. More on the anomaly score and its components can be found in \cite{isolationforest}.
 \par
 In fact, random partitioning produces shorter paths for anomalies because anomalies have high probability of being close to the extreme values of a feature. Hence, if for a particular sample, the forest of random trees collectively produce shorter path lengths, it is highly likely to be an anomaly.
-
+The tuning parameters are the number of trees and the proportion of outliers.
 
 \subsection{Local Outlier Factor}
 \par
 The algorithm computes a score (called local outlier factor) to reflect the degree of abnormality of the observations. It measures the local density deviation of a given data point with respect to its neighbors. The idea is to detect the samples that have a substantially lower density than their neighbors.
 \par
-Commonly, the local density is obtained from KNN. The LOF score of an observation is equal to the ratio of the average local density of his $k$-nearest neighbors and its own local density. A normal instance is expected to have a local density similar to that of its neighbors, while abnormal data are expected to have much smaller local density.
+Commonly, the local density is obtained from KNN. The LOF score of an observation is equal to the ratio of the average local density of its $k$-nearest neighbors and its own local density. A normal instance is expected to have a local density similar to or higher than that of its neighbors, while abnormal data are expected to have much smaller local density.
 \par
-Now let us describe the algorihm more rigirously. Denote $N_k(X)$ as the set of the first $k$ nearest neighbors of data point $X$ and $d(X, Y)$ as the distance between $X$ and $Y$. Define $d_k(X)$ as the distance between $X$ and its $k$th nearest neighbor. The reachability distance between $X$ and $Y$ is defined as
+Now let us describe the algorihm more rigirously. Denote $N_k(X)$ as the set of the first $k$ nearest neighbors of data point $X$ and $d(X, Y)$ as the distance between $X$ and $Y$. Define $d_k(X)$ as the distance between $X$ and its $k$th nearest neighbor. The $k$-reachability distance between $X$ and $Y$ is defined as
 \begin{eqt}
 \textit{rd}_k(X, Y) = \max\{d_k(Y), d(X, Y)\}.
 \end{eqt}
-The local reachability of $X$ is defined as 
+The $k$-local reachability of $X$ is defined as 
 \begin{eqt}
 \textit{lrd}_k(X) = \frac{|N_k(X)|}{\sum_{Y\in N_k(X)}\textit{rd}_k(X, Y)}.
 \end{eqt}
-The local outlier factor of $X$ is defined as 
+The $k$-local outlier factor of $X$ is defined as 
 \begin{eqt}
 \textit{lof}_k(X) = \frac{\sum_{Y\in N_k(X)}\textit{lrd}_k(Y)}{|N_k(X)|\textit{lrd}_k(X)}.
 \end{eqt}
 
 \paragraph{}
-If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. In practice, the proportion of outliers is given by decision makers as an input and the threshold is computed by the algorithm. For more detailed description of the algorithm, readers could refer to \cite{lof}.
+If $\textit{lof}_k(X)$ is larger than a threshold, then we classify $X$ is an outlier. Surely, the number of neighbors $k$ is a tuning parameter, and the proportion of outliers is also given by decision makers as a parameter. For more detailed description of the algorithm, readers could refer to \cite{lof}.
 
 \section{Our Idea: Clustering-Based Modelling Methods}
 \par
-In this part, we will explicitly describe our algorithm on outlier classification. We focus on seperately modelling data distribution with different labels and apply a variant of Bayesian decision theory for classification. Such idea can be easily integrated with other supervised or unsupervised learning technique such as decision tree and EM algorithm.
+In this part, we will explicitly describe our algorithm on outlier classification. We focus on modelling data distribution with different labels and apply a variant of Bayesian decision theory for classification. Such idea can be easily integrated with other supervised or unsupervised learning technique such as decision tree, ensemble methods, and EM algorithm.
 
 \subsection{Bayesian Decision Theory}
 \par
-We assume the following conditions.
+To begin with, we describe some general theories. We now assume the following conditions.
 \begin{enumerate}
 \item Suppose there are $k$ different classes $G_1, ..., G_k$. 
-\item For any given data $x$, the prior probability that it belongs to $G_k$ is $p_k$ (Thus we must have $\sum_{i=1}^kp_i=1$). 
+\item For any given data $x\in \mathbb{R}^n$, the prior probability that it belongs to $G_k$ is $p_k$ (Thus we must have $\sum_{i=1}^kp_i=1$). A criterion $D$ is a partition of $\mathbb{R}^n$, $\{D_1, ..., D_k\}$, such that we classify $x$ into $G_i$ if and only if $x\in D_i (i\in[k])$.
 \item Let $L(j|i)$ be the loss when we classify an object in $G_i$ to $G_j$. Generally, when $i=j$, $L(j|i) = 0$.
 \item Let $P(j|i;D)$ be the probability that we classify an object in $G_i$ into $G_j$ under the criterion $D$.
 \end{enumerate}
 \par
-With these assumptions, we now obtain the following definition.
+With these assumptions, we now give the following definition.
 
 \begin{defn}
 Let $g(D) := \sum_{i=1}^kp_i\sum_{j=1}^kP(j|i;D)L(j|i)$ to be the average loss under classification criterion $D$. If there exists a $D^*$ such that
@@ -474,12 +474,28 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 		\Return $f_1(X), f_2(X)$, \textit{DTC}.
 \end{algorithm}
 
+\subsubsection{Relation with Ensemble Methods}
+\par Once we could build a Decision Tree Classifier based on new features, we could embed it into ensemble algorithms. Bagging, voting, and XGBoosting are all excellent choices for enhancing performance, though parameters remain to be tuned to achieve satisfying results.
 
-\section{Numerical Experiment}
-\par In this section, we will discuss the implementation of previously described algorithms, and make comparison among them from numerical experiments. These numerical experiments are carried on a computer with 2 Intel Core i7-6500U CPUs and 16GiB RAM.
+\section{Case Study: Credit Card Fraud Detection}
 
-\subsection{Supervised Learning Methods}
-\par For supervised learning methods, we have implemented several methods. The setting of these methods are described below
+\subsection{Data Description}
+\par We use an open dataset on Kaggle. The dataset contains transactions made by credit cards in September 2013 by European cardholders. This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions, which indicates that the number of frauds is small. The positive class (frauds) account for 0.172\% of all transactions, which means that the dataset is highly unbalanced.
+
+The dataset contains only numerical input variables which are the result of a PCA transformation. Due to confidentiality issues, the original features and more background information about the data are not provided. 28 of 30 features are the principal components obtained with PCA, and the only features which have not been transformed with PCA are ``Time" and ``Amount". Feature ``Time" contains the seconds elapsed between each transaction and the first transaction in the dataset. Feature ``Amount" is the transaction amount. Feature ``Class" is the response variable and it takes value 1 if the transanction is fraud and 0 otherwise.
+
+\subsection{Data Preprocessing}
+\par We do not make further process on the 28 transformed features. As to Feature ``Time", we replace the time elasped between each transaction and the first transaction with the difference between each transaction and its former one. In practice, we do find that such operation generally enhances the performance of various algorithms.
+
+\par We draw the histogram of each feature corresponding to the response variable. From the charts, we have some confidence that the assumption of our algorithm holds. The distribution can be well approximated by Gaussian Mixture. Of course, rigorous demonstration is left to numerical experiments in the following subsections.
+
+\par As for data splitting, we set the ratio among training, validation, and test set as 6:2:2. If the training set is small, say, less than half of the dataset, then training or modelling is difficult, especially for anomaly data. If the validation set or test set is too small, then our evaluation metric will be vulnerable to a tiny change in anomaly prediction. Our choice is a tradeoff.
+
+\subsection{Implementation Details}
+\par In this section, we will discuss the implementation of previously described algorithms, and make comparison among them from experiments. These numerical experiments are carried out on a computer with 2 Intel Core i7-6500U CPUs and 16GiB RAM.
+
+\subsubsection{Supervised Learning Methods}
+\par For supervised learning methods, we have implemented several methods. The setting of these methods are described below.
 \begin{itemize}
 	\item\textbf{Decision Tree(DTC): } We choose the criterion for splitting nodes and pruning the tree to be Gini index, and the maximum depth of the tree to be 6. Furthermore, we have done experiments with weighted tree, whose purpose is to balance the number of instances in each class. We have chosen two type of weights: $1:5$ and $1:10$.
 	\item\textbf{LDA with bagging(LDA-Bag): }We choose the number of bagging LDA estimators to be 5.
@@ -489,19 +505,19 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 	\item\textbf{Neural Network(NN): }We choose the structure of the neural network to be a 4-layer fully connected neural network, with 5, 4, 3, 3 neurons in each layers respectively.
 \end{itemize}
 
-\subsection{Outlier Detection Methods}
-\par For outier detection methods, we have implemented three algorithms mentioned above. The parameters are as follows.
+\subsubsection{Outlier Detection Methods}
+\par For outlier detection methods, we have implemented three algorithms mentioned above. The parameters are as follows.
 \begin{itemize}
 \item \textbf{Robust Covariance Estimation(RCE): } We directly run the fitting process of the algorithm on the training set, which contains both normal and anomaly data. We then tune the threshold for $d$ (see \ref{mahadist}) using validation set. The optimal threshold we select is $1.01 \times 10^6$. 
 \item \textbf{Local Outlier Factor(LOF): } We set the number of neighbors $k$ to be 50 and the proportion of outliers as 0.0008. During the training process, we only use the normal data in the training set because we observe that directly running the fitting process on the whole training set will worsen the performance.
 \item \textbf{Isolation Forest(ILF): } We set the number of trees to be 250 and the proportion of outliers as 0.005. We only use the normal data in the training set, as what we have done in Local Outlier Factor. 
 \end{itemize}
-\subsection{GMDA and Related Methods}
+\subsubsection{GMDA and Related Methods}
 \par We have also implemented several algorithms related to GMDA. We now explain them as follows.
 \begin{itemize}
 \item \textbf{Gaussian Mixture Discriminant Analysis(GMDA): } We model normal data with $n_1=3$ clusters and anomaly data with $n_2=3$ clusters in the training set. Note that all of the following methods are based on the two fitted gaussian mixture (normal and anomaly). 
-\item \textbf{Gaussian Mixture Discriminant Analysis with notmal data only(GMDA-n): } We use the fitted distribution of normal data obtained by GMDA. 
-\item \textbf{Gaussian Mixture with Decision Tree Classifier(GM-DTC): } The algorithm is consistent with \ref{GMDA-DTC}. The features we select are
+\item \textbf{Gaussian Mixture Discriminant Analysis with normal data only(GMDA-n): } We use the fitted distribution of normal data obtained by GMDA and then tune a threshold using the validation set.
+\item \textbf{Gaussian Mixture with Decision Tree Classifier(GM-dtc): } The algorithm is consistent with \ref{GMDA-DTC}. The features we select are
 \begin{eqt}
 \label{feature}
 f_1(X) - f_2(X), \ f_{1, i}(X), \ f_{2, j}(X)\ (1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2).
@@ -522,7 +538,7 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 \par In contrast, the Gaussian mixture model methods seems to be affected by this reason less likely. These Gaussian models extract the structure of normal and anomaly data correctly. And using these Gaussian models instead of raw data to make prediction can seriously reduce the effect of data imbalance. And from the table, we can notice that all Gaussian mixture models works pretty well.
 \par Furthermore, when it comes to outlier detection methods, their results are not good enough. The main reason for this is the wrong assumptions we have made. Outlier detection methods usually rely on the assumption that outliers are instances outside the normal data distribution, and there is no explicit distribution for them. But in this dataset, the distribution of outliers seems to have certain structure, which contradicts to the underlying assumption of outlier detection methods.
 
-\begin{table}[h]
+\begin{table}[htbp]
 	\centering
 	\setlength{\belowcaptionskip}{10pt}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -574,7 +590,7 @@ LOF & 50.8 & 54.5 & 51.9 & 55.1 & 53.5 & 54.6 & 50.5 & 51.5 & 50.8 & 368.53 & 12
 ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.96 \\
 \hline
 	\end{tabular}
-	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in the first section. The last two columns are about time costs on training process and prediction process. (on test set)}
+	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in Introduction. The last two columns are about time costs on training process and prediction process. (on test set)}
 	\label{comparison}
 \end{table}
 
@@ -584,7 +600,6 @@ ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.
 \bibliography{reference}
 \bibliographystyle{plain}
 
-\newpage
 \begin{appendix}
 \section{Proof of Theorem \ref{optbayes}}
 \par
