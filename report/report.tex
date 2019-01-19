@@ -487,6 +487,9 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 
 \subsection{Comparison between Different Methods}
 \par We have implemented several previous described algorithms together with algorithms proposed by ourselves, and the results can be viewed in Table \ref{comparison}.
+\par From this table, we observe that tree-based algorithms works better than other supervised learning methods. However, some tree based methods also suffer from relatively low recall. This is due to the fact that anomaly data is very rare, and thus tree-based classifiers tend to classify the data into the normal class.
+\par In contrast, the Gaussian mixture model methods seems to be affected by this reason less likely. These Gaussian models extract the structure of normal and anomaly data correctly. And using these Gaussian models instead of raw data to make prediction can seriously reduce the effect of data imbalance. And from the table, we can notice that all Gaussian mixture models works pretty well.
+\par Furthermore, when it comes to outlier detection methods, their results are not good enough. The main reason for this is the wrong assumptions we have made. Outlier detection methods usually rely on the assumption that outliers are instances outside the normal data distribution, and there is no explicit distribution for them. But in this dataset, the distribution of outliers seems to have certain structure, which contradicts to the underlying assumption of outlier detection methods.
 
 \begin{table}[htbp]
 	\centering

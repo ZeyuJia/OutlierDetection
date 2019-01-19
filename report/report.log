@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 09:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 11:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -540,21 +540,17 @@ Overfull \hbox (50.00006pt too wide) in paragraph at lines 432--444
 $[]$ 
  []
 
-[8] (./report.bbl [9] [10]) [11] 
+[8] [9] (./report.bbl [10]) [11] 
 AED: lastpage setting LastPage
 [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 579.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 579.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 582.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 582.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 579.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 579.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 582.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 582.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D8ABFE08E0C04CB646BB96C34A334324;2830.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 579.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 582.
  )
 (\end occurred inside a group at level 1)
 
@@ -563,7 +559,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 579.
 Here is how much of TeX's memory you used:
  8479 strings out of 492995
  123073 string characters out of 6132703
- 255761 words of memory out of 5000000
+ 250757 words of memory out of 5000000
  11782 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -585,7 +581,7 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (12 pages, 220078 bytes).
+Output written on report.pdf (12 pages, 221192 bytes).
 PDF statistics:
  406 PDF objects out of 1000 (max. 8388607)
  372 compressed objects within 4 object streams
