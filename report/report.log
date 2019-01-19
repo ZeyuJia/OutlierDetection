@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 19:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 22:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -558,18 +558,22 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 57.
- [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 92.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 101.
- [2]
+
+[2]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 135.
- [3] [4] [5]
-[6] [7]
+ [3] [4] [5] [6] [7]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 434.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.25002> not available
@@ -589,17 +593,17 @@ Overfull \hbox (50.00006pt too wide) in paragraph at lines 484--496
 $[]$ 
  []
 
-[9] [10] [11] [12] (./report.bbl) [13] 
+[9] [10] [11] [12] [13] (./report.bbl) 
 AED: lastpage setting LastPage
 [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 659.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 659.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 662.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 662.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 659.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 659.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 662.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 662.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 489328D6E2A35AC6669AEF72643CBD37;3148.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 659.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 662.
  )
 (\end occurred inside a group at level 1)
 
@@ -608,11 +612,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 659.
 Here is how much of TeX's memory you used:
  9361 strings out of 492995
  135418 string characters out of 6132703
- 264957 words of memory out of 5000000
+ 267957 words of memory out of 5000000
  12636 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,17n,43p,863b,3403s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,17n,43p,813b,3403s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc
 }</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.
 pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
@@ -630,7 +634,7 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (14 pages, 235147 bytes).
+Output written on report.pdf (14 pages, 235933 bytes).
 PDF statistics:
  445 PDF objects out of 1000 (max. 8388607)
  408 compressed objects within 5 object streams
