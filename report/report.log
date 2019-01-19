@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 19:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.10.26)  19 JAN 2019 19:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -589,25 +589,25 @@ Overfull \hbox (50.00006pt too wide) in paragraph at lines 484--496
 $[]$ 
  []
 
-[9] [10] [11] (./report.bbl [12]) 
+[9] [10] [11] [12] (./report.bbl) [13] 
 AED: lastpage setting LastPage
-[13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 649.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 649.
+[14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 659.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 659.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 649.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 649.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 659.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 659.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 489328D6E2A35AC6669AEF72643CBD37;3148.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 649.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 659.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 9360 strings out of 492995
- 135411 string characters out of 6132703
+ 9361 strings out of 492995
+ 135418 string characters out of 6132703
  264957 words of memory out of 5000000
  12636 multiletter control sequences out of 15000+600000
  34088 words of font info for 76 fonts, out of 8000000 for 9000
@@ -630,10 +630,10 @@ live/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local
 /texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (13 pages, 231865 bytes).
+Output written on report.pdf (14 pages, 235147 bytes).
 PDF statistics:
- 441 PDF objects out of 1000 (max. 8388607)
- 405 compressed objects within 5 object streams
- 145 named destinations out of 1000 (max. 500000)
+ 445 PDF objects out of 1000 (max. 8388607)
+ 408 compressed objects within 5 object streams
+ 146 named destinations out of 1000 (max. 500000)
  329 words of extra memory for PDF output out of 10000 (max. 10000000)
 
