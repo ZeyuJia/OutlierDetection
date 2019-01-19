@@ -13,6 +13,8 @@
 \usepackage[linesnumbered, ruled]{algorithm2e}
 \usepackage{algpseudocode}
 \usepackage{indentfirst}
+\usepackage{tabu}
+\usepackage{multirow}
 \newenvironment{eqt}{\begin{equation}\begin{aligned}}{\end{aligned}\end{equation}}
 \newtheorem{defn}{Definition}[section]
 \newtheorem{thm}{Theorem}[section]
@@ -525,12 +527,12 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 \begin{table}[h]
 	\centering
 	\setlength{\belowcaptionskip}{10pt}
-	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
-	\hline
-	Methods & \multicolumn{3}{|c|}{Train} & \multicolumn{3}{|c|}{Valid} & \multicolumn{3}{|c|}{Test} & \multicolumn{2}{|c|}{Time}\\
-	\hline
+	\begin{tabu}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\tabucline[1.5pt]{-}
+	\multirow{2}{*}{Methods} & \multicolumn{3}{|c|}{Train} & \multicolumn{3}{|c|}{Valid} & \multicolumn{3}{|c|}{Test} & \multicolumn{2}{|c|}{Time}\\
+	\cline{2-12}
 	& R & P & F & R & P & F & R & P & F & T & P\\
-	\hline
+	\tabucline[1.5pt]{-}
 Logistic & 58.6 & 85.2 & 64.9 & 61.2 & 88.2 & 67.6 & 59.6 & 86.8 & 66.0 & 8.88 & 0.01\\
 \hline
 NB & 82.4 & 5.9 & 16.5 & 84.7 & 6.1 & 17.1 & 82.8 & 5.8 & 16.2 & 0.09 & 0.02\\
@@ -554,7 +556,13 @@ RF & \textbf{96.3} & \textbf{100.0} & \textbf{97.4} & 81.6 & 93.0 & 84.8 & 74.7 
 NN & 78.3 & 84.9 & 80.2 & 82.7 & 84.4 & 83.2 & 78.8 & 82.1 & 79.8 & 7.54 & 0.01\\
 \hline
 XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & \textbf{94.2} & 85.9 & 80.8 & \textbf{94.1} & \textbf{84.5} & 37.29 & 0.13\\
+\tabucline[1.5pt]{-}
+RCE & 74.9 & 3.5 & 10.4 & 79.6 & 3.9 & 11.5 & 80.8 & 3.8 & 11.3 & 20.19 & 0.05 \\
 \hline
+LOF & 50.8 & 54.5 & 51.9 & 55.1 & 53.5 & 54.6 & 50.5 & 51.5 & 50.8 & 368.53 & 122.77 \\
+\hline
+ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.96 \\
+\tabucline[1.5pt]{-}
 GMDA & 79.0 & 80.3 & 79.4 & 85.7 & 81.6 & 84.4 & 80.8 & 82.5 & 81.3 & 55.55 & 0.11 \\
 \hline
 GMDA-n & 77.6 & 82.1 & 78.9 & 84.7 & 83.0 & 84.2 & 79.8 & 84.9 & 81.3 & 6.69 & 0.06 \\
@@ -566,14 +574,8 @@ GM-bag & 83.4 & 94.6 & 86.5 & 84.7 & 90.2 & 86.3 & 79.8 & 92.9 & 83.4 & 8.23 & 0
 GM-vote & 82.0 & 95.3 & 85.7 & 84.7 & 88.3 & 85.8 & 78.8 & 94.0 & 82.9 & 7.95 & 0.25 \\
 \hline
 GM-xgb & 86.8 & 98.8 & 90.2 & 84.7 & 91.2 & \textbf{86.6} & 80.8 & \textbf{94.1} & \textbf{84.5} & 13.88 & 0.33 \\
-\hline
-RCE & 74.9 & 3.5 & 10.4 & 79.6 & 3.9 & 11.5 & 80.8 & 3.8 & 11.3 & 20.19 & 0.05 \\
-\hline
-LOF & 50.8 & 54.5 & 51.9 & 55.1 & 53.5 & 54.6 & 50.5 & 51.5 & 50.8 & 368.53 & 122.77 \\
-\hline
-ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.96 \\
-\hline
-	\end{tabular}
+\tabucline[1.5pt]{-}
+	\end{tabu}
 	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in the first section. The last two columns are about time costs on training process and prediction process. (on test set)}
 	\label{comparison}
 \end{table}
