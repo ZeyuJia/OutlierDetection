@@ -486,12 +486,11 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 \end{itemize}
 
 \subsection{Comparison between Different Methods}
-\par We have implemented several previous described algorithms together with algorithms proposed by ourselves on .
+\par We have implemented several previous described algorithms together with algorithms proposed by ourselves, and the results can be viewed in Table \ref{comparison}.
 
 \begin{table}[htbp]
 	\centering
 	\setlength{\belowcaptionskip}{10pt}
-	\caption{}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 	\hline
 	Methods & \multicolumn{3}{|c|}{Train} & \multicolumn{3}{|c|}{Valid} & \multicolumn{3}{|c|}{Test} & \multicolumn{2}{|c|}{Time}\\
@@ -512,25 +511,27 @@ LDA & 74.2 & 85.5 & 77.4 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 0.70 & 0.01
 \hline
 LDA-Bag & 74.9 & 85.7 & 77.9 & 82.7 & 88.0 & 84.2 & 77.8 & 87.5 & 80.5 & 4.20 & 0.02\\
 \hline
-QDA & 87.5 & 5.4 & 15.4 & 90.8 & 5.6 & 16.1 & 84.8 & 5.3 & 15.1 & 0.34 & 0.03\\
+QDA & 87.5 & 5.4 & 15.4 & \textbf{90.8} & 5.6 & 16.1 & \textbf{84.8} & 5.3 & 15.1 & 0.34 & 0.03\\
 \hline
-QDA-Bag & 87.1 & 5.7 & 16.2 & 90.8 & 6.0 & 17.1 & 84.8 & 5.7 & 16.0 & 5.30 & 0.27\\
+QDA-Bag & 87.1 & 5.7 & 16.2 & \textbf{90.8} & 6.0 & 17.1 & \textbf{84.8} & 5.7 & 16.0 & 5.30 & 0.27\\
 \hline
-RF & 96.3 & 100.0 & 97.4 & 81.6 & 93.0 & 84.8 & 74.7 & 93.7 & 79.7 & 11.78 & 0.06\\
+RF & \textbf{96.3} & \textbf{100.0} & \textbf{97.4} & 81.6 & 93.0 & 84.8 & 74.7 & 93.7 & 79.7 & 11.78 & 0.06\\
 \hline
 NN & 78.3 & 84.9 & 80.2 & 82.7 & 84.4 & 83.2 & 78.8 & 82.1 & 79.8 & 7.54 & 0.01\\
 \hline
-XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & 94.2 & 85.9 & 80.8 & 94.1 & 84.5 & 37.29 & 0.13\\
+XGBoost & 87.5 & 99.2 & 90.8 & 82.7 & \textbf{94.2} & 85.9 & 80.8 & \textbf{94.1} & \textbf{84.5} & 37.29 & 0.13\\
 \hline
-GMDA & 79.3 & 81.0 & 79.8 & 83.7 & 82.8 & 83.4 & 79.8 & 83.2 & 80.8 & 80.07 & 0.19 \\
+GMDA & 79.0 & 80.3 & 79.4 & 85.7 & 81.6 & 84.4 & 80.8 & 82.5 & 81.3 & 55.55 & 0.11 \\
 \hline
-GM-DTC & 84.7 & 92.3 & 86.9 & 82.7 & 90.0 & 84.8 & 80.8 & 92.0 & 83.9 & 2.93 & 0.29 \\
+GMDA-n & 77.6 & 82.1 & 78.9 & 84.7 & 83.0 & 84.2 & 79.8 & 84.9 & 81.3 & 6.69 & 0.06 \\
 \hline
-GM-Bag & 85.4 & 93.7 & 87.8 & 80.6 & 87.8 & 82.7 & 77.8 & 93.9 & 82.1 & 10.92 & 0.33 \\
+GM-dtc & 82.7 & 92.4 & 85.5 & 83.7 & 85.4 & 84.2 & 78.8 & 89.7 & 81.8 & 1.99 & 0.20 \\
 \hline
-GM-Vote & 85.4 & 94.4 & 88.0 & 81.6 & 88.9 & 83.7 & 78.8 & 92.9 & 82.6 & 11.10 & 0.33 \\
+GM-bag & 83.4 & 94.6 & 86.5 & 84.7 & 90.2 & 86.3 & 79.8 & 92.9 & 83.4 & 8.23 & 0.25 \\
 \hline
-GMDA-n & 77.6 & 82.1 & 78.9 & 84.7 & 83.0 & 84.2 & 79.8 & 84.9 & 81.3 & 10.22 & 0.10 \\
+GM-vote & 82.0 & 95.3 & 85.7 & 84.7 & 88.3 & 85.8 & 78.8 & 94.0 & 82.9 & 7.95 & 0.25 \\
+\hline
+GM-xgb & 86.8 & 98.8 & 90.2 & 84.7 & 91.2 & \textbf{86.6} & 80.8 & \textbf{94.1} & \textbf{84.5} & 13.88 & 0.33 \\
 \hline
 RCE & 74.9 & 3.5 & 10.4 & 79.6 & 3.9 & 11.5 & 80.8 & 3.8 & 11.3 & 20.19 & 0.05 \\
 \hline
@@ -539,6 +540,8 @@ LOF & 50.8 & 54.5 & 51.9 & 55.1 & 53.5 & 54.6 & 50.5 & 51.5 & 50.8 & 368.53 & 12
 ILF & 47.5 & 14.1 & 27.5 & 46.9 & 13.6 & 26.8 & 47.5 & 14.3 & 27.7 & 368.53 & 3.96 \\
 \hline
 	\end{tabular}
+	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in the first section. The last two columns are about time costs on training process and prediction process. (on test set)}
+	\label{comparison}
 \end{table}
 
 \section{Conclusion}
