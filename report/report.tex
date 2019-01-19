@@ -53,6 +53,23 @@ School of Mathematical Science, Peking University
 \abstract{12}
 
 \section{Introduction}
+\par Anomaly detection (or outlier detection) is the identification of rare items, events or observations which raise suspicions by differing significantly from the majority of the data. Typically, anomalous data can be connected to some kind of problem or rare event such as, e.g., bank fraud, medical problems, structural defects, etc. This connection makes it very interesting to be able to pick out which data point can be considered anomalies, as identifying these events are typically essential from a business perspective. There have been plentiful literatures on machine learning methods for outlier detection, and they generally focus on unsupervised or semi-supervised ones. For a review of them, readers could refer to \cite{review}.
+\par However, unlike labelling of pictures or videos, it is not that difficult to label data points in anomaly detection setting. For example, in financial fraud detection, it's easy to obtain whether a deal is fraud or not after it is done. We observe that labeled data for outlier detection is always available for training and testing numerous algorithms. Why do we have to apply unsupervised or semi-supervised learning methods given that the labels are complete? Thus, in this paper, we will mainly focus on ``Outlier Classification", where labels are all presented.
+\indent Outlier Classification gives rise to other challenging problems. 
+\begin{enumerate}
+\item The dataset is highly imbalanced. The ratio between normal data and anomaly ones may be very large, sometimes exceeding 500:1. This may make traditional classification techniques ineffective.
+\item The number of anomaly data is small, even if the size of the whole data set is large. The problem become especially serious when we split the dataset into several parts, because it imposes high volatility on evaluation with regard to anomaly data.
+\end{enumerate} 
+\par To deal with the problems above, we need to clarify our evaluation metric before going further. We will use \textit{recall}(R) and \textit{precision}(P), which is defined as
+\begin{eqt}
+\textit{recall}\text{(R)} & = \frac{\text{TP}}{\text{TP}+\text{FN}},\\ 
+\textit{precision}\text{(P)} & = \frac{\text{TP}}{\text{TP}+\text{FP}}.
+\end{eqt}
+To integrate the two metric, we also define our \textit{F-score}. In practice, it is always more important to detect all true anomalies as much as possible, which means that we should put more weight on \textit{recall} than \textit{precision}. Our \textit{F-score}(F) is defined as
+\begin{eqt}
+\textit{F-score}\text{(F)} = \frac{2.5\times \text R\times \text P}{1.5\times \text P + \text R}.
+\end{eqt}
+\par Our paper is organized as follows. Section 2 will briefly introduce several supervised learning techniques. Among them, we pay special attention to (weighted) Decision Tree Classifier, XGBoost, and Ensemble methods. Section 3 will briefly introduce three commonly used unsupervised learning techniques for outlier detection. In Section 4, we will introduce our algorithm, ``GMDA", which is originally based on Bayesian decision theory, to combine both supervised and unsupervised learning methods. We also explain its relation and extension with other methods. We conduct a case study of financial fraud detection in Section 5 to produce plentiful results and compare different algorithms. In Section 6, we conclude. The division of our work is in Acknowledgement.
 
 \section{Supervised Learning Models}
 \par In this section, we will discuss several commonly used supervised learning methods, and their application on outlier classification tasks. These supervised learning methods includes
@@ -386,8 +403,9 @@ Based on previous analysis, our algorithm is as follows. We split the data into 
 			Classify data in \textit{V}. If $\log f_2(X) - \log f_1(X) > d$, classify $X$ as anomaly, else normal\;
 			Compute \textit{F-score} and add it into \textit{L}\;
 		}
-		$\rho \gets \arg\max L$\;
-		\Return $f_1(X), f_2(X), D[\rho]$.
+		$\rho \gets \arg\max L$\; 
+		$d\gets D[\rho]$\;
+		\Return $f_1(X), f_2(X), d$.
 \end{algorithm}
  
 \subsection{Relation and Extension with Other Methods}
@@ -395,7 +413,7 @@ Based on previous analysis, our algorithm is as follows. We split the data into 
 \subsubsection{Relation with Naive Bayes}
 \par
 
-Naive Bayes models data using Gaussian distribution, which is similar to GMDA. However, there is much difference between Naive Bayes and GMDA.
+Naive Bayes models data using Gaussian distribution, which is similar to GMDA. However, there is much difference between the two methods.
 \begin{enumerate}
 \item For convenience of optimization, Naive Bayes use one Gaussian distribution, while we use Gaussian Mixture Model.
 \item In Naive Bayes, a crucial assumption is independence between variables. However, we do not impose this assumption. In fact, the goal of using Gaussian Mixture Model is to capture the correlation between variables.
@@ -413,7 +431,7 @@ Both LDA and QDA (see Section \ref{DA}) model data from different classes sepera
 \subsubsection{Relation with Robust Covariance Estimator(RCE)}
 \par
 
-A big difference between RCE and GMDA is that RCE only models one class of data, i.e., the normal data. Enlightened by RCE, we can combine the two algorithms with each other. We can use normal data in the training set to find a Gaussian Mixture model, and then directly tuning the threshold on validation set without further model anomaly data. This is GMDA with normal data only, ``GMDA-n".
+A big difference between RCE and GMDA is that RCE only models one class of data, i.e., the normal data. Enlightened by RCE, we can combine the two algorithms with each other. We can use normal data in the training set to find a Gaussian Mixture model, and then directly tuning the threshold on validation set without further modelling anomaly data. This is GMDA with normal data only, ``GMDA-n".
 
 \subsubsection{Relation with Decision Tree}
 \par
@@ -437,7 +455,7 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 	\KwOut {$f_1(X)$: Density of Normal Data\; $f_2(X)$: Density of Anomaly Data\; \textit{DTC}: A Decision Tree Classifier.}
 		Apply EM algorithm to normal data in \textit{T} to obtain a density function $f_1(X) = \sum_{i=1}^{n_1}\pi_if_{1, i}(X)$\;
 		Apply EM algorithm to anomaly data in \textit{T} to obtain a density function $f_2(X) = \sum_{j=1}^{n_2}\pi_if_{2, j}(X)$\;
-		Construct new features with $f_1(X)$, $f_2(X)$, $f_{1, i}(X)$, $f_{2, j}(X)$$(1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2)$\;
+		Construct new features based on $f_1(X)$, $f_2(X)$, $f_{1, i}(X)$, $f_{2, j}(X)$$(1\leqslant i\leqslant n_1, 1\leqslant j\leqslant n_2)$\;
 		Use the new features above to build a Decision Tree Classifier\;
 		Tune the parameters using \textit{V}\;
 		\Return $f_1(X), f_2(X)$, \textit{DTC}.
@@ -487,11 +505,11 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 
 \subsection{Comparison between Different Methods}
 \par We have implemented several previous described algorithms together with algorithms proposed by ourselves, and the results can be viewed in Table \ref{comparison}.
-\par From this table, we observe that tree-based algorithms works better than other supervised learning methods. However, some tree based methods also suffer from relatively low recall. This is due to the fact that anomaly data is very rare, and thus tree-based classifiers tend to classify the data into the normal class.
+\par From this table, we observe that tree-based algorithms works better than other supervised learning methods. However, some tree based methods also suffer from relatively low recall. This is due to the fact that anomaly data is very rare, and thus tree-based classifiers tend to classify the data into the normal class. If we add weights to the tree, then the previously described problem will be reduced a little. But the F-score will remain nearly the same. Apart from tree-based methods, from the numerical experiments, other supervised learning methods seldom rival the tree-based methods, and lots of these methods suffer from the problem we discussed before. As for ensemble learning technique, we can see that they indeed improve the performance of basic methods, but the improvement is not significant considering the much time they spend.
 \par In contrast, the Gaussian mixture model methods seems to be affected by this reason less likely. These Gaussian models extract the structure of normal and anomaly data correctly. And using these Gaussian models instead of raw data to make prediction can seriously reduce the effect of data imbalance. And from the table, we can notice that all Gaussian mixture models works pretty well.
 \par Furthermore, when it comes to outlier detection methods, their results are not good enough. The main reason for this is the wrong assumptions we have made. Outlier detection methods usually rely on the assumption that outliers are instances outside the normal data distribution, and there is no explicit distribution for them. But in this dataset, the distribution of outliers seems to have certain structure, which contradicts to the underlying assumption of outlier detection methods.
 
-\begin{table}[htbp]
+\begin{table}[h]
 	\centering
 	\setlength{\belowcaptionskip}{10pt}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}

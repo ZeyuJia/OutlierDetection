@@ -5,6 +5,13 @@ Markus~M Breunig, Hans-Peter Kriegel, Raymond~T Ng, and J{\"o}rg Sander.
 \newblock Lof: identifying density-based local outliers.
 \newblock In {\em ACM sigmod record}, volume~29, pages 93--104. ACM, 2000.
 
+\bibitem{review}
+Guilherme~O. Campos, Arthur Zimek, J{\"o}rg Sander, Ricardo J. G.~B. Campello,
+  Barbora Micenkov{\'a}, Erich Schubert, Ira Assent, and Michael~E. Houle.
+\newblock On the evaluation of unsupervised outlier detection: measures,
+  datasets, and an empirical study.
+\newblock {\em Data Mining and Knowledge Discovery}, 30(4):891--927, Jul 2016.
+
 \bibitem{chen1603xgboost}
 T~Chen and C~Guestrin.
 \newblock Xgboost: A scalable tree boosting system (2016).
