@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  20 JAN 2019 15:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/W32TeX) (preloaded format=pdflatex 2018.3.15)  20 JAN 2019 15:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -596,7 +596,13 @@ LaTeX Font Info:    Try loading font information for OT1+pcr on input line 509.
  (c:/texlive/2017/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [10] [11] [12]
-[13] [14] (./report.bbl) 
+[13] [14] (./report.bbl
+Underfull \hbox (badness 1248) in paragraph at lines 26--29
+[]\OT1/ptm/m/n/9 T Chen and C Guestrin.  Xg-boost: A scal-able tree boost-ing s
+ys-tem (2016).  \OT1/ptm/m/it/9 arXiv preprint
+ []
+
+) 
 AED: lastpage setting LastPage
 [15]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 677.
@@ -609,10 +615,10 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 677.
  ) 
 Here is how much of TeX's memory you used:
- 9380 strings out of 492982
- 134964 string characters out of 6136225
- 254364 words of memory out of 5000000
- 12655 multiletter control sequences out of 15000+600000
+ 9384 strings out of 492982
+ 135014 string characters out of 6136225
+ 254427 words of memory out of 5000000
+ 12657 multiletter control sequences out of 15000+600000
  34603 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  31i,17n,43p,882b,452s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -632,10 +638,10 @@ s/symbols/msbm10.pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/courier/ucrr8a
 .pfb><c:/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2
 017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2017/texmf-dist/fon
 ts/type1/urw/times/utmri8a.pfb>
-Output written on report.pdf (15 pages, 250060 bytes).
+Output written on report.pdf (15 pages, 250731 bytes).
 PDF statistics:
- 467 PDF objects out of 1000 (max. 8388607)
- 428 compressed objects within 5 object streams
- 150 named destinations out of 1000 (max. 500000)
+ 472 PDF objects out of 1000 (max. 8388607)
+ 433 compressed objects within 5 object streams
+ 152 named destinations out of 1000 (max. 500000)
  353 words of extra memory for PDF output out of 10000 (max. 10000000)
 

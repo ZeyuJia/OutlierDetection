@@ -1,4 +1,14 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Berger85}
+J.~O. Berger.
+\newblock {\em Statistical Decision Theory and Bayesian Analysis}.
+\newblock Springer, New York, 1985.
+
+\bibitem{Bernardo94}
+J.~M. Bernardo and A.~F.~M. Smith.
+\newblock {\em Bayesian Theory}.
+\newblock John Wiley \& Sons, New York, 1994 (ISBN: 0-471-92416-4).
 
 \bibitem{lof}
 Markus~M Breunig, Hans-Peter Kriegel, Raymond~T Ng, and J{\"o}rg Sander.
