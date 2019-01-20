@@ -41,4 +41,10 @@ Peter~J Rousseeuw.
 \newblock {\em Journal of the American statistical association},
   79(388):871--880, 1984.
 
+\bibitem{dataset}
+Machine Learning~Group ULB.
+\newblock Credit card fraud detection: Anonymized credit card transactions
+  labeled as fraudulent or genuine.
+\newblock \url{https://www.kaggle.com/mlg-ulb/creditcardfraud}.
+
 \end{thebibliography}

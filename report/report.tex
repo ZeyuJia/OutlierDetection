@@ -309,7 +309,7 @@ Hence if we let $f_{t}(x) = \alpha_{t}f_{t}^{*}(x)$, then we only need to fit th
 \par Bagging adopts the idea of voting method, uses one model to train several classifiers by bootstrap, and then use these classifiers to vote to get the prediction. This type of methods can reduce the variance, and is easy for parallel computing.
 
 \subsubsection{Random Forest}
-\par Based on Bagging, Random Forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data apply bootstrap technique, but also the features are selected randomly.
+\par Based on Bagging, Random Forest goes one step further. In this method, the basic model is chosen to be decision tree, and in the bootstrap step, not only does the data apply bootstrap technique, but also the features are selected randomly in each tree.
 
 \section{Outlier/Novelty Detection Methods}
 
@@ -333,7 +333,7 @@ If it's value is too large, then $x$ is classified as an anomaly, else a normal 
 
 \subsection{Isolation Forest}
 \par
-The algorithm borrows ideas form Random Forest. It first randomly select a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to ``isolate" a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, and embedded in an anomaly score, which is regarded as a measure of normality. The anomaly score in this algorithm is defined as 
+The algorithm borrows ideas form Random Forest. It first randomly selects a feature, and randomly select a splitting value between the maximum and minimum values of the selected feature. Then it recursively conduct this process to form a tree. The number of splittings to ``isolate" a sample is equivalent to the path length from the root node to the terminating node. Finally, the path length is averaged over a forest of such random trees, and embedded in an anomaly score, which is regarded as a measure of normality. The anomaly score in this algorithm is defined as 
 \begin{eqt}
 s(X, n) = 2^{-\frac{E[h(X)]}{c(n)}},
 \end{eqt}
@@ -501,12 +501,12 @@ In Decision Tree setting with two classes, this is, to some extent, similar to m
 \section{Case Study: Credit Card Fraud Detection}
 
 \subsection{Data Description}
-\par We use an open dataset on Kaggle. The dataset contains transactions made by credit cards in September 2013 by European cardholders. This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions, which indicates that the number of frauds is small. The positive class (frauds) account for 0.172\% of all transactions, which means that the dataset is highly unbalanced.
+\par We use an open dataset on Kaggle \cite{dataset}. The dataset contains transactions made by credit cards in September 2013 by European cardholders. This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions, which indicates that the number of frauds is small. The positive class (frauds) account for 0.172\% of all transactions, which means that the dataset is highly unbalanced.
 
 The dataset contains only numerical input variables which are the result of a PCA transformation. Due to confidentiality issues, the original features and more background information about the data are not provided. 28 of 30 features are the principal components obtained with PCA, and the only features which have not been transformed with PCA are ``Time" and ``Amount". Feature ``Time" contains the seconds elapsed between each transaction and the first transaction in the dataset. Feature ``Amount" is the transaction amount. Feature ``Class" is the response variable and it takes value 1 if the transanction is fraud and 0 otherwise.
 
 \subsection{Data Preprocessing}
-\par We do not make further process on the 28 transformed features. As to Feature ``Time", we replace the time elasped between each transaction and the first transaction with the difference between each transaction and its former one. In practice, we do find that such operation generally enhances the performance of various algorithms.
+\par We do not make further processing on the 28 transformed features. As to Feature ``Time", we replace the time elasped between each transaction and the first transaction with the difference between each transaction and its former one. In practice, we do find that such operation generally enhances the performance of various algorithms.
 
 \par We draw the histogram of each feature corresponding to the response variable. From the charts, we have some confidence that the assumption of our algorithm holds. The distribution can be well approximated by Gaussian Mixture. Of course, rigorous demonstration is left to numerical experiments in the following subsections.
 
@@ -567,7 +567,7 @@ We choose Entropy Loss as the criterion. To prevent overfitting, we restrict the
 \par GMDA and related methods appear to have robust performance on this dataset. For GMDA and GMDA-n, their preformance are satisfying nearly consistent on the three sets. Since we use validation sets to tune the thresholds, they perform the best on validation set and degrade a little on training and test set. In our algorithm, training set is only for modelling and validation set is only for tuning parameters. The results indicate that the boundary between modelling distribution and tuning parameters may not need to be so distinct. We could use both for modelling and tuning. Since time is limited, this is left for future research. We should also mention that GMDA performs slightly better than GMDA-n, which means there indeed exists some structures for anomalies.
 \par On the basis of GMDA, GMDA-dtc achieves better results than GMDA and GMDA-n and obtain comparable results with orginal Decision Tree Classifier. The features we select indeed grasp some essense of the dataset. We can say that Gaussian Mixture models extract the structure of normal and anomaly data correctly. We should admit that our procedure of selecting features is based on heuristics. We split all features into two or three parts based on their similarity, and then traverse and compare results. It's worth mentioning that DTC tends to increase precision and decrease recall, which is not suitable in some occasions. 
 \par For ensemble methods, the peformance are even better. There are two important merits compared to supervised learning methods. First, the performance are consistent on the 3 sets. Overfitting is largely reduced after we extract features. Second, recall is sustained to a stable and high level. When F-scores are close, we are more willing to choose the algorithm with higher recall, since we want to detect true anomalies as much as possible. We can see from the table
-that F-scores of GM-bag abd GM-vote both outperform other supervised learning algorithms, except XGBoost. Nevertheless, our GM-xgb performs the best among all algorithms and achieves the highest F-score on both validation and test set!
+that F-scores of GM-bag and GM-vote both outperform other supervised learning algorithms, except XGBoost. Nevertheless, our GM-xgb performs the best among all algorithms and achieves the highest F-score on both validation and test set!
 \par It's still woth mentioning that the training time for related methods of GMDA do not include fitting of Gaussian Mixture. Our GMDA tends to spend more time than other supervised learning methods. Note that  This is mainly due to the fact that EM algorithm itself is slow to train and, for accuracy, we make the tolerance of convergence relatively small: 1e-5. There is room for searching for more efficient algorithms to fit Gaussian Mixture. 
 
 \begin{table}[htbp]
@@ -622,7 +622,7 @@ GM-vote & 82.4 & 93.8 & 85.7 & 84.8 & 86.3 & 85.5 & 79.0 & 91.7 & 82.5 & 7.95 & 
 GM-xgb & 86.8 & 98.8 & 90.2 & 84.7 & 91.2 & \textbf{86.6} & 80.8 & \textbf{94.1} & \textbf{84.5} & 13.88 & 0.33 \\
 \tabucline[1.5pt]{-}
 	\end{tabu}
-	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next six rows are about Gaussian mixture model methods, and the last three rows are about outlier detection methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in the first section. The last two columns are about time costs on training process and prediction process. (on test set)}
+	\caption{Comparison between different methods. Each row represent one kind of algorithm. The first eleven rows are about supervised learning method, and the next three rows are about outlier detection methods, and the last six rows are about Gaussian mixture model methods. We have presented the recall (R), precision (P) and F-score (F) on the training, validation and test sets above, where the definition of recall, precision and F-score are given in the first section. The last two columns are about time costs on training process and prediction process. (on test set)}
 	\label{comparison}
 \end{table}
 

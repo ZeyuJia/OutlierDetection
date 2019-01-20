@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: report.aux
+The style file: plain.bst
+Database file #1: reference.bib
+Warning--can't use both volume and number fields in lof
+Warning--empty year in chen1603xgboost
+Warning--can't use both volume and number fields in friedman2001elements
+You've used 8 entries,
+            2118 wiz_defined-function locations,
+            550 strings with 5615 characters,
+and the built_in function-call counts, 3373 in all, are:
+= -- 317
+> -- 212
+< -- 4
++ -- 85
+- -- 76
+* -- 270
+:= -- 564
+add.period$ -- 26
+call.type$ -- 8
+change.case$ -- 61
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 106
+empty$ -- 224
+format.name$ -- 76
+if$ -- 684
+int.to.chr$ -- 0
+int.to.str$ -- 8
+missing$ -- 8
+newline$ -- 43
+num.names$ -- 16
+pop$ -- 68
+preamble$ -- 1
+purify$ -- 54
+quote$ -- 0
+skip$ -- 77
+stack$ -- 0
+substring$ -- 181
+swap$ -- 30
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 30
+warning$ -- 3
+while$ -- 28
+width$ -- 9
+write$ -- 89
+(There were 3 warnings)
