@@ -37,5 +37,8 @@
 \BOOKMARK [3][-]{subsubsection.5.3.2}{Outlier Detection Methods}{subsection.5.3}% 37
 \BOOKMARK [3][-]{subsubsection.5.3.3}{GMDA and Related Methods}{subsection.5.3}% 38
 \BOOKMARK [2][-]{subsection.5.4}{Comparison between Different Methods}{section.5}% 39
-\BOOKMARK [1][-]{section.6}{Conclusion}{}% 40
-\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 41
+\BOOKMARK [3][-]{subsubsection.5.4.1}{On supervised learning methods}{subsection.5.4}% 40
+\BOOKMARK [3][-]{subsubsection.5.4.2}{On Outlier Detection methods}{subsection.5.4}% 41
+\BOOKMARK [3][-]{subsubsection.5.4.3}{On GMDA and related methods}{subsection.5.4}% 42
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 43
+\BOOKMARK [1][-]{appendix.A}{Proof of Theorem 4.1}{}% 44
