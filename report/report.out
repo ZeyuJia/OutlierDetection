@@ -16,7 +16,7 @@
 \BOOKMARK [3][-]{subsubsection.2.8.1}{Voting}{subsection.2.8}% 16
 \BOOKMARK [3][-]{subsubsection.2.8.2}{Bagging}{subsection.2.8}% 17
 \BOOKMARK [3][-]{subsubsection.2.8.3}{Random Forest}{subsection.2.8}% 18
-\BOOKMARK [1][-]{section.3}{Outlier/Novelty Detection Methods}{}% 19
+\BOOKMARK [1][-]{section.3}{Outlier Detection Methods}{}% 19
 \BOOKMARK [2][-]{subsection.3.1}{Robust Covariance Estimation}{section.3}% 20
 \BOOKMARK [2][-]{subsection.3.2}{Isolation Forest}{section.3}% 21
 \BOOKMARK [2][-]{subsection.3.3}{Local Outlier Factor}{section.3}% 22
