@@ -1,1 +1,1 @@
-This is the repository of Zeyu Jia and Feng Zhu's statistical learning term project.
+This is the repository for the group project of course *Statistical Learning* lectured by Wei Lin in Fall 2018. Our group member includes Zeyu Jia and Feng Zhu (lexicographically). 
