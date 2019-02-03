@@ -1,1 +1,7 @@
-.ipynb_checkpoints/*
+*.ipynb_checkpoints/
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.bbl
+*.blg
